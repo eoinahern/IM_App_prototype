@@ -21,7 +21,9 @@
             android:id ="@+id/ly1"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
 
 
@@ -33,6 +35,7 @@
                 android:textSize="15dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:background="@drawable/lefticon"
                 android:textColor="@color/registerfont"
                 ></TextView>
 
@@ -40,7 +43,7 @@
                 android:layout_width="230dp"
                 android:layout_height="fill_parent"
                 android:id="@+id/edtxtemail"
-
+                android:background="@drawable/righttext"
                 android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
@@ -50,7 +53,9 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_below="@+id/ly1"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
 
             <TextView
@@ -60,6 +65,7 @@
                 android:text ="@string/password"
                 android:textSize="15dp"
                 android:gravity="center"
+                android:background="@drawable/lefticon"
                 android:layout_weight="1"
                 android:textColor="@color/registerfont"
                 />
@@ -68,8 +74,9 @@
                 android:layout_width="230dp"
                 android:layout_height="fill_parent"
                 android:id="@+id/edtxtpass"
-
+                android:background="@drawable/righttext"
                 android:layout_gravity="center_horizontal"
+
                 />
         </LinearLayout>
 
@@ -78,7 +85,10 @@
             android:orientation="horizontal"
             android:layout_below="@+id/ly2"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            >
 
 
 
@@ -89,6 +99,7 @@
                 android:layout_width="fill_parent"
                 android:textSize="15dp"
                 android:gravity="center"
+                android:background="@drawable/lefticon"
                 android:layout_weight="1"
                 android:textColor="@color/registerfont"
                 />
@@ -97,7 +108,7 @@
                 android:layout_width="230dp"
                 android:layout_height="fill_parent"
                 android:id="@+id/edtxtphone"
-
+                android:background="@drawable/righttext"
                 android:layout_gravity="center_horizontal" />
 
         </LinearLayout>

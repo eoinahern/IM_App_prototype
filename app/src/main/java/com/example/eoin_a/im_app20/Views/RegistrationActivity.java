@@ -1,7 +1,8 @@
 package com.example.eoin_a.im_app20.Views;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
+import android.os.*;
+import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -32,6 +33,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private Button registerbtn;
     private ProgressDialog progdialog;
     private String dialogstr = "Registering !!";
+    Handler handler;
+
+
 
     @Inject RegisterPresenterInt rpresenter;
 
@@ -46,6 +50,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         registerbtn = (Button) findViewById(R.id.button);
 
         DaggerRegComponent.builder().regModule(new RegModule(this)).build().inject(this);
+
+
+        handler = new Handler();
 
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,11 +89,41 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     @Override
     public void registerUser() {
 
+        //progdialog = ProgressDialog.show(RegistrationActivity.this, "SHIT", "SHIT");
+        showProgress();
 
-        progdialog = ProgressDialog.show(RegistrationActivity.this,"Loading...", dialogstr);
+        Thread th = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
-        rpresenter.relayRegisterUser(emailedtxt.getText().toString(),
-                passedtxt.getText().toString(), phoneedtxt.getText().toString());
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        rpresenter.relayRegisterUser(emailedtxt.getText().toString(),passedtxt.getText().toString(),
+                                phoneedtxt.getText().toString());
+                    }
+                });
+
+
+
+            }
+        });
+
+        th.start();
+        try {
+            th.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -100,15 +137,15 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
     private void showProgress()
     {
-        //progdialog.show(this,"Loading...", dialogstr);
+       progdialog =  ProgressDialog.show(RegistrationActivity.this,"Loading...", dialogstr);
     }
 
 
     private void hideProgress()
     {
         Log.d("hide prog called", "hide prg called");
-        this.progdialog.hide();
-        this.progdialog.dismiss();
+        progdialog.hide();
+        progdialog.dismiss();
 
     }
 

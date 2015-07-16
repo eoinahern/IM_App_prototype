@@ -1,8 +1,8 @@
 package com.example.eoin_a.im_app20.Models;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
+import android.os.*;
+import android.os.Process;
 import android.util.Log;
 
 //import com.example.eoin_a.im_app20.Components.DaggerRegisterComponent;
@@ -26,12 +26,13 @@ public class RegisterModel implements RegisterModelInt {
     private Thread registerthread;
     private RegisterPresenterInt regpresenter;
     private Handler reghandler;
-
     private int progress;
 
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
+
+            android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
             //upload data to the server
                  /*   reghandler.post(new Runnable() {
@@ -59,6 +60,8 @@ public class RegisterModel implements RegisterModelInt {
                                     Log.d("prog update 2 :!!", String.valueOf(progress));
                                 }
                             });
+
+
 
             appstate.setRegistered(true);
         }
