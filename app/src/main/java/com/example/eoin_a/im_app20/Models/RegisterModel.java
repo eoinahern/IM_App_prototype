@@ -45,7 +45,7 @@ public class RegisterModel implements RegisterModelInt {
                     });*/
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(7000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -89,12 +89,8 @@ public class RegisterModel implements RegisterModelInt {
         registerthread = new Thread(runnable);
         registerthread.start();
 
-        try {
-            registerthread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Log.d("Thread Interrupted", "Registraton Interrupted");
-        }
+        //dont join thread as it forces
+        //UI thread to wait for registerthread to complete
 
         Log.d("thread finished", "thread finished");
         return false;

@@ -1,5 +1,7 @@
 package com.example.eoin_a.im_app20.Views;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.*;
 import android.os.Process;
@@ -10,10 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
 import com.example.eoin_a.im_app20.Components.DaggerRegComponent;
+import com.example.eoin_a.im_app20.Fragments.RegisterFrag;
 import com.example.eoin_a.im_app20.Modules.RegModule;
 import com.example.eoin_a.im_app20.Presenters.RegisterPresenter;
 import com.example.eoin_a.im_app20.PresentersInt.RegisterPresenterInt;
@@ -33,10 +37,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private Button registerbtn;
     private ProgressDialog progdialog;
     private String dialogstr = "Registering !!";
-    Handler handler;
-
-
-
+    private ProgressBar progbar;
     @Inject RegisterPresenterInt rpresenter;
 
     @Override
@@ -48,11 +49,10 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         passedtxt =(EditText) findViewById(R.id.edtxtpass);
         phoneedtxt = (EditText) findViewById(R.id.edtxtphone);
         registerbtn = (Button) findViewById(R.id.button);
+        progbar = (ProgressBar) findViewById(R.id.progressBar);
 
         DaggerRegComponent.builder().regModule(new RegModule(this)).build().inject(this);
 
-
-        handler = new Handler();
 
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,41 +89,10 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     @Override
     public void registerUser() {
 
-        //progdialog = ProgressDialog.show(RegistrationActivity.this, "SHIT", "SHIT");
-        showProgress();
+       showDialog();
 
-        Thread th = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        rpresenter.relayRegisterUser(emailedtxt.getText().toString(),passedtxt.getText().toString(),
-                                phoneedtxt.getText().toString());
-                    }
-                });
-
-
-
-            }
-        });
-
-        th.start();
-        try {
-            th.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        rpresenter.relayRegisterUser(emailedtxt.getText().toString(), passedtxt.getText().toString(),
+                phoneedtxt.getText().toString());
 
     }
 
@@ -131,21 +100,28 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     public boolean isRegistered()
     {
         //check if user is registered. get val from model.
+
+
+
         return false;
     }
 
 
-    private void showProgress()
+    public void showDialog()
     {
-       progdialog =  ProgressDialog.show(RegistrationActivity.this,"Loading...", dialogstr);
+        //progbar.setVisibility(ProgressBar.VISIBLE);
+
+        progdialog = ProgressDialog.show(RegistrationActivity.this, "Registering!", "Please wait ..." );
     }
 
 
     private void hideProgress()
     {
         Log.d("hide prog called", "hide prg called");
-        progdialog.hide();
+        //progbar.setVisibility(ProgressBar.INVISIBLE);
+
         progdialog.dismiss();
+
 
     }
 
@@ -166,10 +142,12 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     public void updateProgress(int progress) {
 
         Log.d("increment progactivity:", String.valueOf(progress));
-        progdialog.incrementProgressBy(progress);
+        /*progdialog.incrementProgressBy(progress);
 
         if(progress == 100)
-            hideProgress();
+            hideProgress();*/
+
+        hideProgress();
 
 
     }

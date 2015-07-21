@@ -3,6 +3,7 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@id/topPanel"
     android:background="#696969"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".RegistrationActivity">
 
@@ -101,8 +102,7 @@
                 android:gravity="center"
                 android:background="@drawable/lefticon"
                 android:layout_weight="1"
-                android:textColor="@color/registerfont"
-                />
+                android:textColor="@color/registerfont" />
 
             <EditText
                 android:layout_width="230dp"
@@ -125,9 +125,20 @@
         android:layout_marginRight="40dp"
         android:text="@string/register"
         android:id="@+id/button"
-
+        android:textSize="15dp"
+        android:textColor="@color/registerfont"
+        android:background="@drawable/buttonbackground"
         android:layout_marginTop="50dp"
         android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:layout_marginTop="40dp"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
         android:layout_centerHorizontal="true" />
 
 
