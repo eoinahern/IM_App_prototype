@@ -16,5 +16,7 @@
     <string name="load2">Loading .</string>
     <string name="load3">Loading . .</string>
     <string name="load4">Loading . . .</string>
+    <string name="styloggedin">Remember Login?</string>
+    <string name="login">Login</string>
 
 </resources>

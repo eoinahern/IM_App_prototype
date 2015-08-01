@@ -1,5 +1,4 @@
 package com.example.eoin_a.im_app20.Views;
-
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
@@ -7,30 +6,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-
 import com.example.eoin_a.im_app20.R;
 import com.example.eoin_a.im_app20.Utils.AppState;
-
 import javax.inject.Inject;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    private TextView tv;
-    private int donecounter;
-    private class IntroHandler extends Handler
-    {
-
-        @Override
-        public void handleMessage(Message msg)
-        {
-            tv.setText(msg.arg1);
-        }
-
-    }
-    //@Inject AppState state;
-    private  Handler handl;
+    private Button loginbtn;
+    private EditText emailtxt;
+    private EditText passwordtxt;
 
 
     @Override
@@ -38,45 +25,20 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        tv = (TextView) findViewById(R.id.textView);
-        donecounter = 0;
-        final IntroHandler introhndler = new IntroHandler();
-        handl = new Handler();
-        startScreen();
+
+        loginbtn = (Button) findViewById(R.id.buttonlogin);
+
+
+
+
+
+
+
 
 
     }
 
 
-    public void startScreen()
-    {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-
-                while(donecounter++ < 5)
-                {
-
-
-                    handl.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            tv.setText("shit!!!");
-                            tv.setVisibility(TextView.VISIBLE);
-                        }
-                    });
-
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        }).start();
-    }
 
 
 

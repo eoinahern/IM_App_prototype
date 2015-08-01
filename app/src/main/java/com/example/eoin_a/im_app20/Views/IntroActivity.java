@@ -11,28 +11,22 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.eoin_a.im_app20.Components.appComponent;
+import com.example.eoin_a.im_app20.MyApplication;
 import com.example.eoin_a.im_app20.R;
+import com.example.eoin_a.im_app20.Utils.AppState;
+import com.example.eoin_a.im_app20.UtilsInt.AppStateInt;
+
+import javax.inject.Inject;
 
 public class IntroActivity extends AppCompatActivity {
 
 
-
+    @Inject AppState appstate;
     private TextView tv;
     private int donecounter;
     private ProgressBar progbar;
-    private class IntroHandler extends Handler
-    {
-
-        @Override
-        public void handleMessage(Message msg)
-        {
-            tv.setText(msg.arg1);
-        }
-
-    }
-    //@Inject AppState state;
     private  Handler handl;
-    private IntroHandler introhandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +37,15 @@ public class IntroActivity extends AppCompatActivity {
         progbar = (ProgressBar)  findViewById(R.id.progressBar2);
         progbar.setMax(20);
         donecounter = 0;
-        introhandler = new IntroHandler();
+        appComponent component =  MyApplication.component();
+        component.inject(this);
         handl = new Handler();
-        startShit();
+        startScreen();
 
     }
 
 
-    public void startShit()
+    public void startScreen()
     {
        Thread thread =  new Thread(new Runnable() {
             @Override
@@ -94,8 +89,27 @@ public class IntroActivity extends AppCompatActivity {
 
     private void statReg() {
 
-        Intent intent = new Intent(IntroActivity.this,RegistrationActivity.class);
+
+
+        //dependent on appstate
+        //choose next activity to open
+        Intent intent = new Intent(IntroActivity.this,LoginActivity.class);
         startActivity(intent);
+
+
+        if(!appstate.isRegistered())
+        {
+            //Intent intent = new Intent(IntroActivity.this,RegistrationActivity.class);
+            //startActivity(intent);
+            return;
+        }
+
+        if(!appstate.isLoggedIn())
+        {
+            //Intent intent = new Intent(IntroActivity.this,LoginActivity.class);
+            //startActivity(intent);
+            return;
+        }
 
     }
 

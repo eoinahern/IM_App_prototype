@@ -8,5 +8,100 @@
     tools:context="com.example.eoin_a.im_app20.Views.LoginActivity">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/relativeLayout2">
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/ly1login"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:id="@+id/tv1login"
+            android:text="@string/emailadd"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:textSize="15dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/lefticon"
+            android:textColor="@color/registerfont"
+            ></TextView>
+
+
+        <EditText
+            android:layout_width="230dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/edtxtemaillogin"
+            android:background="@drawable/righttext"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:paddingBottom="5dp"
+            android:layout_below="@id/ly1login"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:text ="@string/password"
+                android:textSize="15dp"
+                android:gravity="center"
+                android:background="@drawable/lefticon"
+                android:layout_weight="1"
+                android:textColor="@color/registerfont"
+                />
+
+            <EditText
+                android:layout_width="230dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/edtxtpass"
+                android:background="@drawable/righttext"
+                android:layout_gravity="center_horizontal"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/styloggedin"
+        android:id="@+id/checkBox"
+        android:textSize="20dp"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="@string/login"
+        android:id="@+id/buttonlogin"
+        android:textSize="15dp"
+        android:textColor="@color/registerfont"
+        android:background="@drawable/button_selector"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/checkBox"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
+
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.eoin_a.im_app20.Models.RegisterModel;
 import com.example.eoin_a.im_app20.Modules.AppModule;
 import com.example.eoin_a.im_app20.MyApplication;
+import com.example.eoin_a.im_app20.Views.IntroActivity;
 import com.example.eoin_a.im_app20.Views.RegistrationActivity;
 
 import javax.inject.Singleton;
@@ -20,5 +21,6 @@ import dagger.Component;
 public interface appComponent {
 
     void inject(RegisterModel model);
+    void inject(IntroActivity introActivity);
 
 }
