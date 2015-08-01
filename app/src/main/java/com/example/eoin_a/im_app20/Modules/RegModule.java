@@ -28,7 +28,4 @@ public class RegModule {
 {
     return new RegisterPresenter(activ);
 }
-
-
-
 }

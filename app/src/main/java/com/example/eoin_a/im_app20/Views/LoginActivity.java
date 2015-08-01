@@ -9,15 +9,22 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.eoin_a.im_app20.Components.DaggerLoginComponent;
+import com.example.eoin_a.im_app20.Modules.LoginModule;
+import com.example.eoin_a.im_app20.PresentersInt.LoginPresenterInt;
 import com.example.eoin_a.im_app20.R;
 import com.example.eoin_a.im_app20.Utils.AppState;
+import com.example.eoin_a.im_app20.ViewsInt.LoginViewInt;
+
 import javax.inject.Inject;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity  implements LoginViewInt {
 
     private Button loginbtn;
     private EditText emailtxt;
     private EditText passwordtxt;
+    @Inject LoginPresenterInt loginpresenter;
 
 
     @Override
@@ -27,19 +34,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
         loginbtn = (Button) findViewById(R.id.buttonlogin);
-
-
-
-
-
-
-
-
+        DaggerLoginComponent.builder().loginModule(new LoginModule(this)).build().inject(this);
 
     }
-
-
-
 
 
     @Override
