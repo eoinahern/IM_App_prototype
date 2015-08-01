@@ -35,14 +35,6 @@ public class RegisterModel implements RegisterModelInt {
             android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
             //upload data to the server
-                 /*   reghandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            progress = 50;
-                            regpresenter.updateUIProgress(progress);
-                            Log.d("prog updated by :!!", String.valueOf(progress));
-                        }
-                    });*/
 
             try {
                 Thread.sleep(7000);

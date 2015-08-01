@@ -16,5 +16,4 @@ public interface RegComponent{
 
     void inject(RegistrationActivity activity);
 
-
 }

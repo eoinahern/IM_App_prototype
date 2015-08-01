@@ -109,8 +109,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
     public void showDialog()
     {
-        //progbar.setVisibility(ProgressBar.VISIBLE);
-
         progdialog = ProgressDialog.show(RegistrationActivity.this, "Registering!", "Please wait ..." );
     }
 
@@ -118,11 +116,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private void hideProgress()
     {
         Log.d("hide prog called", "hide prg called");
-        //progbar.setVisibility(ProgressBar.INVISIBLE);
-
         progdialog.dismiss();
-
-
     }
 
     @Override
@@ -142,13 +136,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     public void updateProgress(int progress) {
 
         Log.d("increment progactivity:", String.valueOf(progress));
-        /*progdialog.incrementProgressBy(progress);
-
-        if(progress == 100)
-            hideProgress();*/
-
         hideProgress();
-
-
     }
 }

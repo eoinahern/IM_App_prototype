@@ -10,5 +10,11 @@
     <string name="phonenumber">Phone No:</string>
     <string name="register">Register</string>
     <string name="regdetails">registering device</string>
+    <string name="title_activity_login">IM_App2.0</string>
+    <string name="title_activity_intro">IM_App2.0</string>
+    <string name="load1">Loading </string>
+    <string name="load2">Loading .</string>
+    <string name="load3">Loading . .</string>
+    <string name="load4">Loading . . .</string>
 
 </resources>

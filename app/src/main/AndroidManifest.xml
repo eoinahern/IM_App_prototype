@@ -3,15 +3,23 @@
     package="com.example.eoin_a.im_app20" >
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-         android:name="com.example.eoin_a.im_app20.MyApplication"
-        >
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".Views.RegistrationActivity"
             android:label="@string/app_name" >
+
+        </activity>
+        <activity
+            android:name=".Views.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name=".Views.IntroActivity"
+            android:label="@string/title_activity_intro" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

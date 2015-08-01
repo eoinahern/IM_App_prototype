@@ -75,6 +75,6 @@ public class ErrorChecker implements ErrorCheckerInt {
 
     @Override
     public String getWarning() {
-        return "hellothere!!!";
+        return warning;
     }
 }

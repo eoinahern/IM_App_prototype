@@ -2,7 +2,9 @@
 <resources>
 
     <color  name="backgroundmain">#3f3f3f</color>
+    <color name="mainback">#696969</color>
     <color name="registerfont">#EBEBEB</color>
     <color name="edittxtunderline">#000000</color>
     <color name="transparent">#21EDE9FF</color>
+
 </resources>
