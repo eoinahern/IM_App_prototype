@@ -28,8 +28,8 @@ public class LoginPresenter implements LoginPresenterInt {
     }
 
     @Override
-    public void LoginComplete() {
-        loginview.LoginComplete(loggedin);
+    public void LoginComplete(boolean result) {
+        loginview.LoginComplete(result);
     }
 
 

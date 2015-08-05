@@ -6,6 +6,6 @@ package com.example.eoin_a.im_app20.PresentersInt;
 public interface LoginPresenterInt  {
 
     void LoginDevice(String emailin, String passin);
-    void LoginComplete();
+    void LoginComplete(boolean result);
 
 }

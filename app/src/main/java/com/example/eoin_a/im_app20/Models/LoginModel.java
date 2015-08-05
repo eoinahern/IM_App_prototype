@@ -3,10 +3,16 @@ package com.example.eoin_a.im_app20.Models;
 import android.os.*;
 import android.os.Process;
 
+import com.example.eoin_a.im_app20.Components.DaggerconnComponent;
+import com.example.eoin_a.im_app20.Components.appComponent;
 import com.example.eoin_a.im_app20.ModelsInt.LoginModelInt;
+import com.example.eoin_a.im_app20.Modules.ConnModule;
+import com.example.eoin_a.im_app20.MyApplication;
 import com.example.eoin_a.im_app20.PresentersInt.LoginPresenterInt;
 import com.example.eoin_a.im_app20.Utils.AppState;
+import com.example.eoin_a.im_app20.Utils.ConnectionManager;
 import com.example.eoin_a.im_app20.Utils.ErrorChecker;
+import com.example.eoin_a.im_app20.UtilsInt.ConnectionManagerInt;
 
 import javax.inject.Inject;
 
@@ -17,13 +23,20 @@ public class LoginModel implements LoginModelInt {
 
     private LoginPresenterInt loginpresenter;
     private Handler loginhandler;
+    private boolean result;
+    @Inject ConnectionManager conmanager;
     @Inject AppState appstate;
-    @Inject ErrorChecker errorchecker;
+    @Inject ErrorChecker errcheck;
 
     public LoginModel(LoginPresenterInt loginpresin)
     {
         loginpresenter = loginpresin;
         loginhandler = new Handler();
+
+        DaggerconnComponent.builder().connModule(new ConnModule()).build().inject(this);
+        appComponent component =  MyApplication.component();
+        component.inject(this);
+
     }
 
 
@@ -46,7 +59,7 @@ public class LoginModel implements LoginModelInt {
                     e.printStackTrace();
                 }
 
-
+               //result = conmanager.connect();
 
                 //check login against server.
                 //if logged in go to main screen
@@ -55,7 +68,7 @@ public class LoginModel implements LoginModelInt {
                 loginhandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        loginpresenter.LoginComplete();
+                        loginpresenter.LoginComplete(result);
                     }
                 });
 
