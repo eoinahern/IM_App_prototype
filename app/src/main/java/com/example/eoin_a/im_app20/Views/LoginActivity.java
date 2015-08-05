@@ -1,4 +1,6 @@
 package com.example.eoin_a.im_app20.Views;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
@@ -6,7 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,11 +23,14 @@ import com.example.eoin_a.im_app20.ViewsInt.LoginViewInt;
 
 import javax.inject.Inject;
 
-public class LoginActivity extends AppCompatActivity  implements LoginViewInt {
+public class LoginActivity extends AppCompatActivity implements LoginViewInt {
 
     private Button loginbtn;
     private EditText emailtxt;
     private EditText passwordtxt;
+    private CheckBox chkbox;
+    private ProgressDialog progdialog;
+    private Intent intent;
     @Inject LoginPresenterInt loginpresenter;
 
 
@@ -34,7 +41,55 @@ public class LoginActivity extends AppCompatActivity  implements LoginViewInt {
 
 
         loginbtn = (Button) findViewById(R.id.buttonlogin);
+        emailtxt = (EditText) findViewById(R.id.edtxtemaillogin);
+        passwordtxt = (EditText) findViewById(R.id.edtxtpasslogin);
         DaggerLoginComponent.builder().loginModule(new LoginModule(this)).build().inject(this);
+
+        loginbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                relayLoginUser();
+            }
+        });
+
+    }
+
+
+    @Override
+    public void relayLoginUser()
+    {
+        showLoading();
+        loginpresenter.LoginDevice(emailtxt.getText().toString(), passwordtxt.getText().toString());
+    }
+
+    @Override
+    public void showLoading()
+    {
+        //dialog
+        progdialog = ProgressDialog.show(LoginActivity.this, "Logging in!", "Please wait ..." );
+    }
+
+    @Override
+    public void hideLoading() {
+        //hide dialog
+        progdialog.dismiss();
+    }
+
+    @Override
+    public void LoginComplete(boolean loginstate) {
+
+
+        hideLoading();   //hide dialog
+
+        if(loginstate)
+        {
+           //open main activity
+
+        }
+        else
+        {
+            //login failed message. try again
+        }
 
     }
 

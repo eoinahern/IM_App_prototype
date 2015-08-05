@@ -44,6 +44,7 @@
             android:layout_height="fill_parent"
             android:id="@+id/edtxtemaillogin"
             android:background="@drawable/righttext"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
@@ -57,7 +58,7 @@
             >
 
             <TextView
-                android:id="@+id/tv2"
+                android:id="@+id/tv2login"
                 android:layout_height="fill_parent"
                 android:layout_width="fill_parent"
                 android:text ="@string/password"
@@ -71,9 +72,10 @@
             <EditText
                 android:layout_width="230dp"
                 android:layout_height="fill_parent"
-                android:id="@+id/edtxtpass"
+                android:id="@+id/edtxtpasslogin"
                 android:background="@drawable/righttext"
                 android:layout_gravity="center_horizontal"
+                android:textCursorDrawable="@drawable/color_cursor"
                 />
         </LinearLayout>
     </RelativeLayout>
@@ -83,10 +85,11 @@
         android:layout_height="wrap_content"
         android:text="@string/styloggedin"
         android:id="@+id/checkBox"
-        android:textSize="20dp"
+        android:textSize="15dp"
+
         android:layout_below="@+id/relativeLayout2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="3dp" />
 
     <Button
         android:layout_width="fill_parent"

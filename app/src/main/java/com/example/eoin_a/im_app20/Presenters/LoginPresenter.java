@@ -12,22 +12,25 @@ public class LoginPresenter implements LoginPresenterInt {
 
     private LoginModelInt loginmodel;
     private LoginViewInt loginview;
+    private boolean loggedin;
 
     public LoginPresenter(LoginViewInt loginviewin)
     {
         loginview = loginviewin;
         loginmodel = new LoginModel(this);
+        loggedin = false;
     }
-
-
 
 
     @Override
     public void LoginDevice(String emailin, String passin) {
-
-
-
-
-
+         loggedin = loginmodel.login(emailin,passin);
     }
+
+    @Override
+    public void LoginComplete() {
+        loginview.LoginComplete(loggedin);
+    }
+
+
 }

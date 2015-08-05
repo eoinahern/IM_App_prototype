@@ -1,7 +1,14 @@
 package com.example.eoin_a.im_app20.Models;
 
+import android.os.*;
+import android.os.Process;
+
 import com.example.eoin_a.im_app20.ModelsInt.LoginModelInt;
 import com.example.eoin_a.im_app20.PresentersInt.LoginPresenterInt;
+import com.example.eoin_a.im_app20.Utils.AppState;
+import com.example.eoin_a.im_app20.Utils.ErrorChecker;
+
+import javax.inject.Inject;
 
 /**
  * Created by eoin_a on 01/08/2015.
@@ -9,26 +16,61 @@ import com.example.eoin_a.im_app20.PresentersInt.LoginPresenterInt;
 public class LoginModel implements LoginModelInt {
 
     private LoginPresenterInt loginpresenter;
-    private Thread loginthread;
+    private Handler loginhandler;
+    @Inject AppState appstate;
+    @Inject ErrorChecker errorchecker;
 
     public LoginModel(LoginPresenterInt loginpresin)
     {
         loginpresenter = loginpresin;
+        loginhandler = new Handler();
     }
 
 
-
-    public void loginDevice(String email, String password)
-    {
-        //login device with pass
-
-
-
-    }
 
 
     @Override
     public boolean login(String emailin, String passin) {
+
+
+         new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+                try {
+                    Thread.sleep(7000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+
+                //check login against server.
+                //if logged in go to main screen
+
+
+                loginhandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loginpresenter.LoginComplete();
+                    }
+                });
+
+
+
+
+
+
+
+
+            }
+        }).start();
+
+
+
         return false;
     }
 }

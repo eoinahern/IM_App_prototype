@@ -6,5 +6,10 @@ package com.example.eoin_a.im_app20.ViewsInt;
 public interface LoginViewInt {
 
 
+    void relayLoginUser();
+    void showLoading();
+    void hideLoading();
+    void LoginComplete(boolean loginstate);
+
 
 }

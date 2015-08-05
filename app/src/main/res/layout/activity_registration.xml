@@ -45,7 +45,8 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/edtxtemail"
                 android:background="@drawable/righttext"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:textCursorDrawable="@drawable/color_cursor"/>
 
         </LinearLayout>
 
@@ -69,6 +70,7 @@
                 android:background="@drawable/lefticon"
                 android:layout_weight="1"
                 android:textColor="@color/registerfont"
+
                 />
 
             <EditText
@@ -77,6 +79,7 @@
                 android:id="@+id/edtxtpass"
                 android:background="@drawable/righttext"
                 android:layout_gravity="center_horizontal"
+                android:textCursorDrawable="@drawable/color_cursor"
 
                 />
         </LinearLayout>
@@ -109,7 +112,8 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/edtxtphone"
                 android:background="@drawable/righttext"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:textCursorDrawable="@drawable/color_cursor"/>
 
         </LinearLayout>
 
