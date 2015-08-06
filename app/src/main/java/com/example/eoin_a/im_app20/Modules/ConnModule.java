@@ -16,9 +16,7 @@ import dagger.Provides;
 public class ConnModule {
 
 
-    public ConnModule()
-    {
-    }
+
 
 @Singleton
 @Provides ConnectionManager getConnectionManager()

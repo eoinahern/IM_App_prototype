@@ -30,15 +30,15 @@ public class ConnectionManager implements ConnectionManagerInt {
     {
         //initialize
 
-        configbuilder = XMPPTCPConnectionConfiguration.builder()
+        /*configbuilder = XMPPTCPConnectionConfiguration.builder()
                 .setHost(HOST)
                 .setPort(PORT)
                 .setUsernameAndPassword(ACCOUNT, PASS)
-                .build();
+                .build();*/
 
         //need to provide xmpp service name???
 
-        conn1 = new XMPPTCPConnection(configbuilder);
+        /*conn1 = new XMPPTCPConnection(configbuilder);*/
     }
 
 
