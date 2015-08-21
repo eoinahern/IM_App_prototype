@@ -6,6 +6,7 @@ import com.example.eoin_a.im_app20.Models.LoginModel;
 import com.example.eoin_a.im_app20.Models.RegisterModel;
 import com.example.eoin_a.im_app20.Modules.AppModule;
 import com.example.eoin_a.im_app20.MyApplication;
+import com.example.eoin_a.im_app20.Utils.ConnectionManager;
 import com.example.eoin_a.im_app20.Views.IntroActivity;
 import com.example.eoin_a.im_app20.Views.RegistrationActivity;
 
@@ -24,5 +25,6 @@ public interface appComponent {
     void inject(RegisterModel model);
     void inject(IntroActivity introActivity);
     void inject(LoginModel loginmodel);
+    void inject(ConnectionManager manager);
 
 }

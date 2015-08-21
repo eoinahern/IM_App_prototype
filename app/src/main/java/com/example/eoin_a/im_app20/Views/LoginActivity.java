@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.eoin_a.im_app20.Components.DaggerLoginComponent;
 import com.example.eoin_a.im_app20.Modules.LoginModule;
@@ -76,19 +78,25 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInt {
     }
 
     @Override
-    public void LoginComplete(boolean loginstate) {
+    public void LoginComplete(String loginstate) {
 
 
         hideLoading();   //hide dialog
 
-        if(loginstate)
+        if(loginstate.isEmpty())
         {
            //open main activity
 
+            Log.d("login complete!!", "login complete hooray");
+            intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
         }
         else
         {
-            //login failed message. try again
+            Log.d("login failed!!", "login failed waa");
+            Toast.makeText(getApplicationContext(), loginstate,
+                    Toast.LENGTH_LONG).show();
+
         }
 
     }

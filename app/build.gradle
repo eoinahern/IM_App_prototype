@@ -4,7 +4,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 android {
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
-
+    //21.1.2
     defaultConfig {
         applicationId "com.example.eoin_a.im_app20"
         minSdkVersion 15
@@ -23,22 +23,16 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
-
     compile 'javax.annotation:jsr250-api:1.0'
     compile 'com.google.dagger:dagger:2.0'
     apt 'com.google.dagger:dagger-compiler:2.0'
     //compile 'org.glassfish:javax.annotation:10.0-b28'
-
-
-    compile ("org.igniterealtime.smack:smack-android-extensions:4.1.0")
-            {
-                exclude(group: 'xpp3', module: 'xpp3')
-            }
-    compile ("org.igniterealtime.smack:smack-tcp:4.1.0")
-            {
-                exclude(group: 'xpp3', module: 'xpp3')
-            }
-
+    compile('org.igniterealtime.smack:smack-android-extensions:4.1.0') {
+        exclude(group: 'xpp3', module: 'xpp3')
+    }
+    compile('org.igniterealtime.smack:smack-tcp:4.1.0') {
+        exclude(group: 'xpp3', module: 'xpp3')
+    }
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:1.7.0'
     testCompile('org.robolectric:robolectric:3.0-rc2') {

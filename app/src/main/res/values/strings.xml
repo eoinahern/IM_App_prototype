@@ -18,5 +18,8 @@
     <string name="load4">Loading . . .</string>
     <string name="styloggedin">Remember Login?</string>
     <string name="login">Login</string>
+    <string name="title_activity_main">IM_App2.0</string>
+    <string name="error_wifi">Wifi is currently not available</string>
+    <string name="error_conn">Error: Cant connect to server!</string>
 
 </resources>

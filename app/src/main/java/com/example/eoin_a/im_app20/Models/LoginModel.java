@@ -23,7 +23,7 @@ public class LoginModel implements LoginModelInt {
 
     private LoginPresenterInt loginpresenter;
     private Handler loginhandler;
-    private boolean result;
+    private String result;
 
     @Inject AppState appstate;
     @Inject ErrorChecker errcheck;
@@ -60,7 +60,7 @@ public class LoginModel implements LoginModelInt {
                     e.printStackTrace();
                 }
 
-               //result = conmanager.connect();
+               result = conmanager.connect();
 
                 //check login against server.
                 //if logged in go to main screen

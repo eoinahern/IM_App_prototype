@@ -5,5 +5,5 @@ package com.example.eoin_a.im_app20.UtilsInt;
  */
 public interface ConnectionManagerInt {
 
-    boolean connect();
+    String connect();
 }
