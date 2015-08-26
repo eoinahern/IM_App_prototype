@@ -25,7 +25,7 @@ public class RegisterPresenter  implements RegisterPresenterInt{
 
     @Override
     public String getError() {
-        return "";
+        return regmodel.getWarningStr();
     }
 
     @Override

@@ -27,7 +27,7 @@ public class ErrorChecker implements ErrorCheckerInt {
     @Inject
     public ErrorChecker()
     {
-
+        warning = "";
     }
 
     public void setEmail(String emailin)
@@ -44,12 +44,15 @@ public class ErrorChecker implements ErrorCheckerInt {
     {
         email = emailin;
         password = passwordin;
+        warning = "";
 
     }
 
 
     @Override
     public boolean emailValid() {
+
+
 
         if(!email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z.]+"))
         {
@@ -63,7 +66,9 @@ public class ErrorChecker implements ErrorCheckerInt {
     @Override
     public boolean passwordValid() {
 
-        if(password.length() <= 8  &&  password.matches("[a-zA-Z0-9]+"))
+        //need to check for empty string also
+
+        if(password.length() <= 8  &&  password.matches("[a-zA-Z0-9 ]+"))
         {
             warning += cont.getString(R.string.warn1) + "\n";
             return false;
@@ -71,6 +76,13 @@ public class ErrorChecker implements ErrorCheckerInt {
         }
 
          return true;
+    }
+
+
+    @Override
+    public void clearWarning()
+    {
+        warning = "";
     }
 
     @Override

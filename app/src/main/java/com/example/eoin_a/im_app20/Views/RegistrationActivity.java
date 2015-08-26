@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.eoin_a.im_app20.Components.DaggerRegComponent;
@@ -38,6 +39,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private ProgressDialog progdialog;
     private String dialogstr = "Registering !!";
     private ProgressBar progbar;
+    private boolean registerset;
     @Inject RegisterPresenterInt rpresenter;
 
     @Override
@@ -53,14 +55,12 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
         DaggerRegComponent.builder().regModule(new RegModule(this)).build().inject(this);
 
-
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registerUser();
             }
         });
-
     }
 
     @Override
@@ -91,8 +91,8 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
        showDialog();
 
-        rpresenter.relayRegisterUser(emailedtxt.getText().toString(), passedtxt.getText().toString(),
-                phoneedtxt.getText().toString());
+         rpresenter.relayRegisterUser(emailedtxt.getText().toString(), passedtxt.getText().toString(),
+                 phoneedtxt.getText().toString());
 
     }
 
@@ -119,6 +119,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         progdialog.dismiss();
     }
 
+
     @Override
     public void getMessage() { //get error message
 
@@ -126,8 +127,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
         if(!error.equalsIgnoreCase(""))
         {
-            //show error message.
-            //undecided on how to display yet
+            Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
         }
 
     }
@@ -137,5 +137,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
         Log.d("increment progactivity:", String.valueOf(progress));
         hideProgress();
+        getMessage();
+
     }
 }

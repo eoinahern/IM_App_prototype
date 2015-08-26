@@ -1,6 +1,8 @@
 package com.example.eoin_a.im_app20;
 
 import android.app.Application;
+import android.content.Context;
+
 import com.example.eoin_a.im_app20.Components.DaggerappComponent;
 import com.example.eoin_a.im_app20.Modules.AppModule;
 import com.example.eoin_a.im_app20.Components.appComponent;
@@ -19,7 +21,7 @@ public class MyApplication extends Application {
     public void onCreate()
     {
         super.onCreate();
-        component = DaggerappComponent.builder().appModule(new AppModule(this)).build();
+       component = DaggerappComponent.builder().appModule(new AppModule(this)).build();
     }
 
 
@@ -27,6 +29,8 @@ public class MyApplication extends Application {
     {
         return component;
     }
+
+
 
 
 

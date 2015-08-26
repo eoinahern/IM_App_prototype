@@ -6,9 +6,10 @@ package com.example.eoin_a.im_app20.UtilsInt;
 public interface ErrorCheckerInt {
 
 
-    public boolean emailValid();
-    public boolean passwordValid();
-    public String getWarning();
+     boolean emailValid();
+     boolean passwordValid();
+     String getWarning();
+     void  clearWarning();
 
 
 

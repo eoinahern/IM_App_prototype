@@ -14,8 +14,7 @@ import dagger.Component;
  */
 @Singleton
 @Component( modules = {ConnModule.class})
-public interface connComponent {
-
+public interface connComponent
+{
     ConnectionManager manager();
-
 }

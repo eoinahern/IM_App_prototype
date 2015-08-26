@@ -11,6 +11,7 @@ import com.example.eoin_a.im_app20.ModelsInt.RegisterModelInt;
 import com.example.eoin_a.im_app20.MyApplication;
 import com.example.eoin_a.im_app20.PresentersInt.RegisterPresenterInt;
 import com.example.eoin_a.im_app20.Utils.AppState;
+import com.example.eoin_a.im_app20.Utils.ConnectionManager;
 import com.example.eoin_a.im_app20.Utils.ErrorChecker;
 
 import javax.inject.Inject;
@@ -23,6 +24,7 @@ public class RegisterModel implements RegisterModelInt {
 
     @Inject AppState appstate;
     @Inject ErrorChecker errchecker;
+    @Inject ConnectionManager connmanager;
     private Thread registerthread;
     private RegisterPresenterInt regpresenter;
     private Handler reghandler;
@@ -41,6 +43,9 @@ public class RegisterModel implements RegisterModelInt {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+
+
 
 
 
@@ -72,17 +77,22 @@ public class RegisterModel implements RegisterModelInt {
 
 
     @Override
-    public boolean registerDevice(String email, String password) {
+    public boolean registerDevice(String email, String password) {  //prob dont need to return bool
 
 
         errchecker.setEmail(email);
         errchecker.setPassword(password);
 
+
+        if(!checkErrors())
+        {
+            regpresenter.updateUIProgress(100);
+            return false;
+
+        }
+
         registerthread = new Thread(runnable);
         registerthread.start();
-
-        //dont join thread as it forces
-        //UI thread to wait for registerthread to complete
 
         Log.d("thread finished", "thread finished");
         return false;
@@ -91,7 +101,7 @@ public class RegisterModel implements RegisterModelInt {
 
     private  boolean  checkErrors() {
 
-        //if error returned from server. pass back to presenter
+        errchecker.clearWarning();
 
         if(!errchecker.emailValid()  || !errchecker.passwordValid())
             return false;
@@ -101,14 +111,7 @@ public class RegisterModel implements RegisterModelInt {
 
     @Override
     public String getWarningStr() {
-
-
-        if(!checkErrors())
-        {
             return errchecker.getWarning();
-        }
-
-        return "";
 
     }
 }

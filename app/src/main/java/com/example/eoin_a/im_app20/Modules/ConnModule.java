@@ -14,15 +14,14 @@ import dagger.Provides;
 
 @Module
 public class ConnModule {
-
-
-
-
 @Singleton
 @Provides ConnectionManager getConnectionManager()
 {
     return new ConnectionManager();
 }
+
+
+
 
 
 

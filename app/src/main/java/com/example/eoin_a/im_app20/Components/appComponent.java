@@ -10,6 +10,8 @@ import com.example.eoin_a.im_app20.Utils.ConnectionManager;
 import com.example.eoin_a.im_app20.Views.IntroActivity;
 import com.example.eoin_a.im_app20.Views.RegistrationActivity;
 
+import org.jivesoftware.smackx.iqregister.AccountManager;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -22,9 +24,10 @@ import dagger.Component;
 @Component( modules = {AppModule.class})
 public interface appComponent {
 
-    void inject(RegisterModel model);
-    void inject(IntroActivity introActivity);
-    void inject(LoginModel loginmodel);
-    void inject(ConnectionManager manager);
+
+     void inject(IntroActivity introActivity);
+     void inject(RegisterModel model);
+     void inject(LoginModel loginmodel);
+     void inject(ConnectionManager manager);
 
 }

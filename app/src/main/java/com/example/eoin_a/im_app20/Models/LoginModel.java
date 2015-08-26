@@ -73,13 +73,6 @@ public class LoginModel implements LoginModelInt {
                     }
                 });
 
-
-
-
-
-
-
-
             }
         }).start();
 
