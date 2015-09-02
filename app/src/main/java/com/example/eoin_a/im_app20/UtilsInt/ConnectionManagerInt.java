@@ -5,9 +5,11 @@ package com.example.eoin_a.im_app20.UtilsInt;
  */
 public interface ConnectionManagerInt {
 
-    String connect();
-    boolean  registerDevice(String email, String password);
+    boolean connect();
+    boolean registerDevice(String email, String password);
     boolean loginDevice(String email, String password);
+    String getError();
+    void resetError();
     void closeConn();
 
 }

@@ -28,41 +28,9 @@ public class RegisterModel implements RegisterModelInt {
     private Thread registerthread;
     private RegisterPresenterInt regpresenter;
     private Handler reghandler;
-    private int progress;
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-
-            android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-
-            //upload data to the server
-
-            try {
-                Thread.sleep(7000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    private String warningstr;
 
 
-
-
-
-
-            reghandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progress = 100;
-                                    regpresenter.updateUIProgress(progress);
-                                    Log.d("prog update 2 :!!", String.valueOf(progress));
-                                }
-                            });
-
-
-
-            appstate.setRegistered(true);
-        }
-    };
 
 
     public RegisterModel(RegisterPresenterInt regpresin)
@@ -71,47 +39,86 @@ public class RegisterModel implements RegisterModelInt {
         regpresenter = regpresin;
         appComponent component =  MyApplication.component();
         component.inject(this);
-        progress = 0;
+        warningstr = "";
     }
 
 
 
     @Override
-    public boolean registerDevice(String email, String password) {  //prob dont need to return bool
+    public boolean registerDevice(final String email, final String password) {  //prob dont need to return bool
 
 
         errchecker.setEmail(email);
         errchecker.setPassword(password);
 
-
         if(!checkErrors())
         {
-            regpresenter.updateUIProgress(100);
+            regpresenter.updateUIProgress();
             return false;
-
         }
 
-        registerthread = new Thread(runnable);
-        registerthread.start();
+        registerthread = new Thread(new Runnable() {
 
+            @Override
+            public void run()
+            {
+                android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+               if (!connmanager.connect())
+               {
+                   warningstr = connmanager.getError();
+                   return;
+               }
+
+                if(!connmanager.registerDevice(email,password))
+                {
+                    warningstr = connmanager.getError();
+
+                    return;
+                }
+
+
+
+                reghandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        regpresenter.updateUIProgress();
+                    }
+                });
+
+
+                appstate.setRegistered(true);
+            }
+        });
+        registerthread.start();
         Log.d("thread finished", "thread finished");
         return false;
     }
 
 
-    private  boolean  checkErrors() {
+    private  boolean  checkErrors() {  //need to make error checking a bit more generic!!!
 
         errchecker.clearWarning();
 
-        if(!errchecker.emailValid()  || !errchecker.passwordValid())
+        if(!errchecker.emailValid()  || !errchecker.passwordValid()) {
+            warningstr = errchecker.getWarning();
             return false;
+        }
 
         return true;
     }
 
     @Override
     public String getWarningStr() {
-            return errchecker.getWarning();
-
+        return warningstr;
     }
+
+
 }

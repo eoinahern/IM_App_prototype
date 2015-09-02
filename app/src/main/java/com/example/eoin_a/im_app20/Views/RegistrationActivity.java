@@ -133,9 +133,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     }
 
     @Override
-    public void updateProgress(int progress) {
+    public void updateProgress() {
 
-        Log.d("increment progactivity:", String.valueOf(progress));
+        Log.d("increment progactivity:", "updated");
         hideProgress();
         getMessage();
 

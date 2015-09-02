@@ -34,8 +34,8 @@ public class RegisterPresenter  implements RegisterPresenterInt{
     }
 
     @Override
-    public void updateUIProgress(int progress) {
-        regview.updateProgress(progress);
+    public void updateUIProgress() {
+        regview.updateProgress();
     }
 
 

@@ -70,9 +70,8 @@ public class ConnectionManager implements ConnectionManagerInt {
 
 
     @Override
-    public String connect()
+    public boolean connect()
     {
-
         //connect to openfire server
 
         try {
@@ -80,18 +79,19 @@ public class ConnectionManager implements ConnectionManagerInt {
         } catch (SmackException e) {
             e.printStackTrace();
             error += cont.getResources().getResourceName(R.string.error_conn);
+            return false;
         } catch (IOException e) {
             e.printStackTrace();
             error += cont.getResources().getResourceName(R.string.error_conn);
+            return false;
         } catch (XMPPException e) {
             e.printStackTrace();
             error += cont.getResources().getResourceName(R.string.error_conn);
+            return false;
         }
 
 
-        return error;
-
-
+        return true;
     }
 
 
@@ -100,34 +100,55 @@ public class ConnectionManager implements ConnectionManagerInt {
     {
 
 
+
+
+
         return false;
     }
 
     @Override
     public boolean registerDevice(String email, String password)
     {
-
         try {
-
             if(accman.supportsAccountCreation())
                 accman.createAccount(email,password);
             else
+            {
+                error +=  cont.getResources().getResourceName(R.string.regfail);
                 return false;
+            }
+
 
         } catch (SmackException.NoResponseException e) {
             e.printStackTrace();
+            error += cont.getResources().getResourceName(R.string.regfail);
             return false;
         } catch (XMPPException.XMPPErrorException e) {
             e.printStackTrace();
+            error += cont.getResources().getResourceName(R.string.regfail);
             return false;
         } catch (SmackException.NotConnectedException e) {
             e.printStackTrace();
+            error += cont.getResources().getResourceName(R.string.regfail);
             return false;
         }
 
         //if device is registered. save apstate
 
         return true;
+    }
+
+
+    @Override
+    public String getError()
+    {
+        return error;
+    }
+
+    @Override
+    public void resetError()
+    {
+        error = "";
     }
 
 

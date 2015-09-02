@@ -60,7 +60,7 @@ public class LoginModel implements LoginModelInt {
                     e.printStackTrace();
                 }
 
-               result = conmanager.connect();
+               //result = conmanager.connect();
 
                 //check login against server.
                 //if logged in go to main screen

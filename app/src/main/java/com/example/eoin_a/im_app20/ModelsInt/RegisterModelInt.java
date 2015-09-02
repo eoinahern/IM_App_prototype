@@ -7,4 +7,5 @@ public interface RegisterModelInt {
 
     boolean registerDevice(String email, String password);
     String getWarningStr();
+
 }

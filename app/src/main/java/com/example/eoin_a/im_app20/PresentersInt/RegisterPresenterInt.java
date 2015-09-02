@@ -7,7 +7,7 @@ public interface RegisterPresenterInt {
 
     String getError();
     boolean relayRegisterUser(String email, String password, String phoneno);
-    void updateUIProgress(int progress);
+    void updateUIProgress();
 
 
 
