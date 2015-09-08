@@ -27,7 +27,7 @@ public class LoginModel implements LoginModelInt {
 
     @Inject AppState appstate;
     @Inject ErrorChecker errcheck;
-    @Inject ConnectionManager conmanager;
+    //@Inject ConnectionManager conmanager;
 
 
     public LoginModel(LoginPresenterInt loginpresin)
@@ -35,8 +35,8 @@ public class LoginModel implements LoginModelInt {
         loginpresenter = loginpresin;
         loginhandler = new Handler();
 
-        appComponent component =  MyApplication.component();
-        component.inject(this);
+        DaggerconnComponent.builder().connModule(new ConnModule()).appComponent(MyApplication.component()).
+                build().inject(this);
 
     }
 

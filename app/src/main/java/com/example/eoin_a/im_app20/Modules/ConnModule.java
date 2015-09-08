@@ -1,5 +1,6 @@
 package com.example.eoin_a.im_app20.Modules;
 
+import com.example.eoin_a.im_app20.Components.PerModel;
 import com.example.eoin_a.im_app20.Utils.ConnectionManager;
 import com.example.eoin_a.im_app20.UtilsInt.ConnectionManagerInt;
 
@@ -14,7 +15,7 @@ import dagger.Provides;
 
 @Module
 public class ConnModule {
-@Singleton
+@PerModel
 @Provides ConnectionManager getConnectionManager()
 {
     return new ConnectionManager();

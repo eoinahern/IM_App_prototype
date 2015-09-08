@@ -6,8 +6,10 @@ import android.os.Process;
 import android.util.Log;
 
 //import com.example.eoin_a.im_app20.Components.DaggerRegisterComponent;
+import com.example.eoin_a.im_app20.Components.DaggerconnComponent;
 import com.example.eoin_a.im_app20.Components.appComponent;
 import com.example.eoin_a.im_app20.ModelsInt.RegisterModelInt;
+import com.example.eoin_a.im_app20.Modules.ConnModule;
 import com.example.eoin_a.im_app20.MyApplication;
 import com.example.eoin_a.im_app20.PresentersInt.RegisterPresenterInt;
 import com.example.eoin_a.im_app20.Utils.AppState;
@@ -40,8 +42,8 @@ public class RegisterModel implements RegisterModelInt {
     {
         reghandler = new Handler();
         regpresenter = regpresin;
-        appComponent component =  MyApplication.component();
-        component.inject(this);
+        DaggerconnComponent.builder().connModule(new ConnModule())
+                .appComponent(MyApplication.component()).build().inject(this);
         warningstr = "";
     }
 
