@@ -28,6 +28,7 @@ public interface appComponent {
      void inject(IntroActivity introActivity);
      void inject(RegisterModel model);
      void inject(LoginModel loginmodel);
-     void inject(ConnectionManager manager);
-
+     //void inject(ConnectionManager manager);
+     // inject(RegistrationActivity activity);
+     Context cont();
 }

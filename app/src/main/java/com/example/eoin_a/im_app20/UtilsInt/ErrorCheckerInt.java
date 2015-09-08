@@ -8,6 +8,7 @@ public interface ErrorCheckerInt {
 
      boolean emailValid();
      boolean passwordValid();
+     boolean phonevalid();
      String getWarning();
      void  clearWarning();
 

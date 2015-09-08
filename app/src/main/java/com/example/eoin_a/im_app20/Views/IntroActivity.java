@@ -40,6 +40,7 @@ public class IntroActivity extends AppCompatActivity {
         appComponent component =  MyApplication.component();
         component.inject(this);
         handl = new Handler();
+
         startScreen();
 
     }
@@ -73,9 +74,9 @@ public class IntroActivity extends AppCompatActivity {
                 handl.post(new Runnable() {
                     @Override
                     public void run() {
-                        finish();
-                        
+
                         statReg();
+                        finish();
                     }
                 });
 
@@ -93,21 +94,21 @@ public class IntroActivity extends AppCompatActivity {
 
         //dependent on appstate
         //choose next activity to open
-        Intent intent = new Intent(IntroActivity.this,RegistrationActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(IntroActivity.this,RegistrationActivity.class);
+        //startActivity(intent);
 
 
         if(!appstate.isRegistered())
         {
-            //Intent intent = new Intent(IntroActivity.this,RegistrationActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(IntroActivity.this,RegistrationActivity.class);
+            startActivity(intent);
             return;
         }
 
         if(!appstate.isLoggedIn())
         {
-            //Intent intent = new Intent(IntroActivity.this,LoginActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(IntroActivity.this,LoginActivity.class);
+            startActivity(intent);
             return;
         }
 

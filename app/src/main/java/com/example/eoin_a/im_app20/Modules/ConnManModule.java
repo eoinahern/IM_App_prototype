@@ -1,5 +1,7 @@
 package com.example.eoin_a.im_app20.Modules;
 
+import com.example.eoin_a.im_app20.Components.PerModel;
+
 import org.jivesoftware.smack.AbstractXMPPConnection;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
@@ -24,7 +26,7 @@ public class ConnManModule {
         conn = connin;
     }
 
-@Singleton
+@PerModel
 @Provides AccountManager getAccountManager()
 {
     return AccountManager.getInstance(conn);

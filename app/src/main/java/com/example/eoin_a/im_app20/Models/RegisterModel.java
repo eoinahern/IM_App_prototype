@@ -14,6 +14,9 @@ import com.example.eoin_a.im_app20.Utils.AppState;
 import com.example.eoin_a.im_app20.Utils.ConnectionManager;
 import com.example.eoin_a.im_app20.Utils.ErrorChecker;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 /**
@@ -45,16 +48,17 @@ public class RegisterModel implements RegisterModelInt {
 
 
     @Override
-    public boolean registerDevice(final String email, final String password) {  //prob dont need to return bool
+    public void registerDevice(final String email, final String password, final String phoneno) {  //prob dont need to return bool
 
 
         errchecker.setEmail(email);
         errchecker.setPassword(password);
+        errchecker.setPhoneNo(phoneno);
 
         if(!checkErrors())
         {
             regpresenter.updateUIProgress();
-            return false;
+            return;
         }
 
         registerthread = new Thread(new Runnable() {
@@ -77,10 +81,13 @@ public class RegisterModel implements RegisterModelInt {
                    return;
                }
 
-                if(!connmanager.registerDevice(email,password))
+
+                Map<String, String> extparam = new HashMap<String, String>();
+                extparam.put("PhoneNo", phoneno);
+
+                if(!connmanager.registerDevice(email,password, extparam))
                 {
                     warningstr = connmanager.getError();
-
                     return;
                 }
 
@@ -99,7 +106,7 @@ public class RegisterModel implements RegisterModelInt {
         });
         registerthread.start();
         Log.d("thread finished", "thread finished");
-        return false;
+
     }
 
 
@@ -107,7 +114,11 @@ public class RegisterModel implements RegisterModelInt {
 
         errchecker.clearWarning();
 
-        if(!errchecker.emailValid()  || !errchecker.passwordValid()) {
+        boolean emailval = errchecker.emailValid();
+        boolean passval = errchecker.passwordValid();
+        boolean phoneval = errchecker.phonevalid();
+
+        if(!emailval  || !passval || phoneval) {
             warningstr = errchecker.getWarning();
             return false;
         }

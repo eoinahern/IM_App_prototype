@@ -6,6 +6,7 @@
     <string name="warn1">Password must be greater than 8 chars long and alphanumeric!</string>
     <string name="warn2">Email address must be in correct format!</string>
     <string name="regfail">Registration failed!!</string>
+    <string name="phonenowarning">Please make sure phone number is correct format!</string>
     <string name="emailadd">Email:</string>
     <string name="password">Password:</string>
     <string name="phonenumber">Phone No:</string>

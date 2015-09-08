@@ -21,6 +21,7 @@ public class ErrorChecker implements ErrorCheckerInt {
     private String email;
     private String password;
     private String warning;
+    private String phoneno;
     @Inject Context cont;
 
 
@@ -40,9 +41,16 @@ public class ErrorChecker implements ErrorCheckerInt {
         password = passwordin;
     }
 
-    public ErrorChecker(String emailin, String passwordin)
+
+    public void setPhoneNo(String phonenoin)
+    {
+      phoneno =  phonenoin;
+    }
+
+    public ErrorChecker(String emailin, String passwordin, String phonenoin)
     {
         email = emailin;
+        phoneno = phonenoin;
         password = passwordin;
         warning = "";
 
@@ -54,11 +62,11 @@ public class ErrorChecker implements ErrorCheckerInt {
 
 
 
-        if(!email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z.]+"))
+       /* if(!email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z.]+"))
         {
             warning += cont.getString(R.string.warn2) + "\n";
             return false;
-        }
+        }*/
 
         return true;
     }
@@ -68,7 +76,7 @@ public class ErrorChecker implements ErrorCheckerInt {
 
         //need to check for empty string also
 
-        if(password.length() <= 8  &&  password.matches("[a-zA-Z0-9 ]+"))
+        if(password.length() <= 8   || password.matches("[a-zA-Z0-9 ]+"))
         {
             warning += cont.getString(R.string.warn1) + "\n";
             return false;
@@ -76,6 +84,35 @@ public class ErrorChecker implements ErrorCheckerInt {
         }
 
          return true;
+    }
+
+    @Override
+    public boolean phonevalid() {
+
+
+
+        if( !(phoneno.length() > 15)  ||  !checkAllDigits(phoneno))
+        {
+            warning += cont.getString(R.string.phonenowarning) + "\n";
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkAllDigits(String phoneno)
+    {
+        for(int i = 0; i < phoneno.length(); i++)
+        {
+            if(!Character.isDigit(phoneno.charAt(i)))
+            {
+                    return false;
+            }
+        }
+
+        return true;
+
+
     }
 
 

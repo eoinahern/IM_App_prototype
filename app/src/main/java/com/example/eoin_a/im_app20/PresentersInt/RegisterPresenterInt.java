@@ -6,7 +6,7 @@ package com.example.eoin_a.im_app20.PresentersInt;
 public interface RegisterPresenterInt {
 
     String getError();
-    boolean relayRegisterUser(String email, String password, String phoneno);
+    void relayRegisterUser(String email, String password, String phoneno);
     void updateUIProgress();
 
 

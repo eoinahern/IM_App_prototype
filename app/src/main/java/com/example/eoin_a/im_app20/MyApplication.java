@@ -16,12 +16,20 @@ import javax.inject.Inject;
 public class MyApplication extends Application {
 
     private static appComponent component;
+    private static MyApplication myapp;
 
     @Override
     public void onCreate()
     {
+        myapp = this;
+        component = DaggerappComponent.builder().appModule(new AppModule(this)).build();
         super.onCreate();
-       component = DaggerappComponent.builder().appModule(new AppModule(this)).build();
+    }
+
+
+    public static MyApplication getInst()
+    {
+        return myapp;
     }
 
 
@@ -29,6 +37,8 @@ public class MyApplication extends Application {
     {
         return component;
     }
+
+
 
 
 

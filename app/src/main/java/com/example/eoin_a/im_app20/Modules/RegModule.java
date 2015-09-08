@@ -1,5 +1,6 @@
 package com.example.eoin_a.im_app20.Modules;
 
+import com.example.eoin_a.im_app20.Components.PerModel;
 import com.example.eoin_a.im_app20.Presenters.RegisterPresenter;
 import com.example.eoin_a.im_app20.PresentersInt.RegisterPresenterInt;
 import com.example.eoin_a.im_app20.Views.RegistrationActivity;
@@ -23,7 +24,7 @@ public class RegModule {
  }
 
 
-@Singleton
+@PerModel
 @Provides RegisterPresenterInt getPres()
 {
     return new RegisterPresenter(activ);

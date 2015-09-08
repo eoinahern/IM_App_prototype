@@ -3,10 +3,12 @@ package com.example.eoin_a.im_app20.Views;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.*;
 import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +20,12 @@ import android.widget.Toast;
 
 
 import com.example.eoin_a.im_app20.Components.DaggerRegComponent;
+import com.example.eoin_a.im_app20.Components.DaggerappComponent;
+import com.example.eoin_a.im_app20.Components.appComponent;
 import com.example.eoin_a.im_app20.Fragments.RegisterFrag;
+import com.example.eoin_a.im_app20.Modules.AppModule;
 import com.example.eoin_a.im_app20.Modules.RegModule;
+import com.example.eoin_a.im_app20.MyApplication;
 import com.example.eoin_a.im_app20.Presenters.RegisterPresenter;
 import com.example.eoin_a.im_app20.PresentersInt.RegisterPresenterInt;
 import com.example.eoin_a.im_app20.R;
@@ -40,7 +46,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private String dialogstr = "Registering !!";
     private ProgressBar progbar;
     private boolean registerset;
-    @Inject RegisterPresenterInt rpresenter;
+    @Inject  RegisterPresenterInt rpresenter;
+    @Inject AppState appstate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +61,10 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         registerbtn = (Button) findViewById(R.id.button);
         progbar = (ProgressBar) findViewById(R.id.progressBar);
 
-        DaggerRegComponent.builder().regModule(new RegModule(this)).build().inject(this);
+        RegModule regmodule = new RegModule(this);
+
+         DaggerRegComponent.builder().regModule(regmodule).appComponent(MyApplication.component()).build()
+        .inject(this);
 
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,17 +138,41 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
         if(!error.equalsIgnoreCase(""))
         {
-            Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
+            Toast toast = Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, -50);
+            toast.show();
         }
+        else
+        {
+            startNextActivity();
+        }
+    }
 
+    private void startNextActivity() {
+
+
+        if(appstate.isLoggedIn())
+        {
+            Intent intent = new Intent(RegistrationActivity.this,IntroActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(RegistrationActivity.this,LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
     public void updateProgress() {
-
         Log.d("increment progactivity:", "updated");
         hideProgress();
         getMessage();
+    }
+
+
+    private void saveCredentials()
+    {
 
     }
 }

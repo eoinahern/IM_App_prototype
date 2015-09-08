@@ -29,8 +29,8 @@ public class RegisterPresenter  implements RegisterPresenterInt{
     }
 
     @Override
-    public boolean relayRegisterUser(String email, String password, String phoneno) {
-       return  regmodel.registerDevice(email, password);
+    public void relayRegisterUser(String email, String password, String phoneno) {
+        regmodel.registerDevice(email, password, phoneno);
     }
 
     @Override

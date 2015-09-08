@@ -16,10 +16,10 @@ import dagger.Component;
  * Created by eoin_a on 24/08/2015.
  */
 
-@Singleton
-@Component( modules = {ConnManModule.class})
+@PerModel
+@Component(dependencies ={appComponent.class},  modules = {ConnManModule.class})
 public interface connmanComponent {
 
-    //void inject(ConnectionManager connmanager);
+    void inject(ConnectionManager connmanager);
     AccountManager getAccountManager();
 }

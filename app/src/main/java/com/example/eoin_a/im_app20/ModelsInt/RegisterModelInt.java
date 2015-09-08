@@ -5,7 +5,7 @@ package com.example.eoin_a.im_app20.ModelsInt;
  */
 public interface RegisterModelInt {
 
-    boolean registerDevice(String email, String password);
+    void registerDevice(String email, String password, String phoneno);
     String getWarningStr();
 
 }

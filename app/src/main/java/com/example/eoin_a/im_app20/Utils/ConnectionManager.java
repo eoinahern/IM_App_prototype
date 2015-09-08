@@ -36,12 +36,13 @@ public class ConnectionManager implements ConnectionManagerInt {
     private AbstractXMPPConnection conn1;
     private XMPPTCPConnectionConfiguration configbuilder;
     private int PORT = 5222;
-    private String HOST = "52.10.150.92";
+    private String HOST = "52.25.73.200";
     private String ACCOUNT ="admin";
     private String PASS = "hellothere123";
     private String error = "";
     @Inject Context cont;
-    private AccountManager accman;
+    @Inject AppState appstate;
+    @Inject AccountManager accman;
     private Map<String, String> attrmap;
 
 
@@ -49,10 +50,6 @@ public class ConnectionManager implements ConnectionManagerInt {
     public ConnectionManager()
     {
         //initialize
-
-        appComponent component =  MyApplication.component();
-        component.inject(this);
-
         configbuilder = XMPPTCPConnectionConfiguration.builder()
                 .setHost(HOST)
                 .setPort(PORT)
@@ -63,9 +60,10 @@ public class ConnectionManager implements ConnectionManagerInt {
 
 
         conn1 = new XMPPTCPConnection(configbuilder);
-        accman = DaggerconnmanComponent.builder()
-                .connManModule(new ConnManModule(conn1)).build()
-                .getAccountManager();
+         DaggerconnmanComponent.builder().connManModule(new ConnManModule(conn1))
+                .appComponent(MyApplication.component()).
+                        build().inject(this);
+
     }
 
 
@@ -107,11 +105,11 @@ public class ConnectionManager implements ConnectionManagerInt {
     }
 
     @Override
-    public boolean registerDevice(String email, String password)
+    public boolean registerDevice(String email, String password, Map<String, String> extraparam)
     {
         try {
             if(accman.supportsAccountCreation())
-                accman.createAccount(email,password);
+                 accman.createAccount(email,password, extraparam);
             else
             {
                 error +=  cont.getResources().getResourceName(R.string.regfail);
@@ -133,7 +131,7 @@ public class ConnectionManager implements ConnectionManagerInt {
             return false;
         }
 
-        //if device is registered. save apstate
+        appstate.setRegistered(true);
 
         return true;
     }
