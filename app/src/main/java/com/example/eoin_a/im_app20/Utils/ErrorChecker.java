@@ -62,11 +62,11 @@ public class ErrorChecker implements ErrorCheckerInt {
 
 
 
-       /* if(!email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z.]+"))
+        if(!email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z.]+[a-z]+"))
         {
             warning += cont.getString(R.string.warn2) + "\n";
             return false;
-        }*/
+        }
 
         return true;
     }
@@ -76,7 +76,7 @@ public class ErrorChecker implements ErrorCheckerInt {
 
         //need to check for empty string also
 
-        if(password.length() <= 8   || password.matches("[a-zA-Z0-9 ]+"))
+        if(password.length() <= 8   || !password.matches("[a-zA-Z0-9 ]+"))
         {
             warning += cont.getString(R.string.warn1) + "\n";
             return false;
@@ -91,7 +91,7 @@ public class ErrorChecker implements ErrorCheckerInt {
 
 
 
-        if( !(phoneno.length() > 15)  ||  !checkAllDigits(phoneno))
+        if( (phoneno.length() > 15)  ||  !checkAllDigits(phoneno))
         {
             warning += cont.getString(R.string.phonenowarning) + "\n";
             return false;
