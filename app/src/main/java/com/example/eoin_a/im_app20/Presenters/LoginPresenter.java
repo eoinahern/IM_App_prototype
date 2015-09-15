@@ -28,8 +28,20 @@ public class LoginPresenter implements LoginPresenterInt {
     }
 
     @Override
-    public void LoginComplete(String result) {
-        loginview.LoginComplete(result);
+    public void LoginComplete() {
+        loginview.LoginComplete();
+    }
+
+    @Override
+    public boolean getLoggedIn()
+    {
+        return loggedin;
+    }
+
+
+    @Override
+    public String getError() {
+       return  loginmodel.getWarning();
     }
 
 

@@ -78,12 +78,12 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInt {
     }
 
     @Override
-    public void LoginComplete(String loginstate) {
+    public void LoginComplete() {
 
 
         hideLoading();   //hide dialog
 
-        if(loginstate.isEmpty())
+        if(loginpresenter.getLoggedIn())
         {
            //open main activity
 
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInt {
         else
         {
             Log.d("login failed!!", "login failed waa");
-            Toast.makeText(getApplicationContext(), loginstate,
+            Toast.makeText(getApplicationContext(), loginpresenter.getError(),
                     Toast.LENGTH_LONG).show();
 
         }

@@ -15,9 +15,20 @@ import com.example.eoin_a.im_app20.PresentersInt.RegisterPresenterInt;
 import com.example.eoin_a.im_app20.Utils.AppState;
 import com.example.eoin_a.im_app20.Utils.ConnectionManager;
 import com.example.eoin_a.im_app20.Utils.ErrorChecker;
+import com.example.eoin_a.im_app20.Utils.TimedTask;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import javax.inject.Inject;
 
@@ -30,12 +41,13 @@ public class RegisterModel implements RegisterModelInt {
     @Inject AppState appstate;
     @Inject ErrorChecker errchecker;
     @Inject ConnectionManager connmanager;
+    @Inject ExecutorService exservice;
     private Thread registerthread;
     private RegisterPresenterInt regpresenter;
     private Handler reghandler;
     private String warningstr;
-
-
+    private ExecutorService executorService;
+    private Timer timer;
 
 
     public RegisterModel(RegisterPresenterInt regpresin)
@@ -45,71 +57,115 @@ public class RegisterModel implements RegisterModelInt {
         DaggerconnComponent.builder().connModule(new ConnModule())
                 .appComponent(MyApplication.component()).build().inject(this);
         warningstr = "";
+
     }
 
 
 
     @Override
-    public void registerDevice(final String email, final String password, final String phoneno) {  //prob dont need to return bool
+    public void registerDevice(final String email, final String password, final String phoneno) {
+
+        //relatively messy looking at present. id like to refactor this!!
 
 
-        errchecker.setEmail(email);
+        /*errchecker.setEmail(email);
         errchecker.setPassword(password);
         errchecker.setPhoneNo(phoneno);
+
 
         if(!checkErrors())
         {
             regpresenter.updateUIProgress();
             return;
-        }
+        }*/
+
+
+
+
+
+            final Future<Boolean> future = exservice.submit(new Callable() {
+
+
+                @Override
+                public Boolean call() throws Exception {
+
+                    android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+
+                    if (!connmanager.connect()) {
+                        warningstr = connmanager.getError();
+                        updateUI();
+                        return false;
+                    }
+
+                    Map<String, String> extparam = new HashMap<String, String>();
+                    extparam.put("PhoneNo", phoneno);
+
+
+                    if (!connmanager.registerDevice(email, password, extparam)) {
+                        warningstr = connmanager.getError();
+                        updateUI();
+                        return false;
+                    }
+
+                    updateUI();
+                    return true;
+                }
+
+                private void updateUI() {
+
+                    reghandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            regpresenter.updateUIProgress();
+                        }
+                    });
+
+                }
+
+            });
+
+        exservice.shutdown();
 
         registerthread = new Thread(new Runnable() {
-
             @Override
-            public void run()
-            {
-                android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+            public void run() {
 
                 try {
-                    Thread.sleep(2000);
+
+                  boolean status =  executorService.awaitTermination(10,TimeUnit.SECONDS);
+
+                   // boolean status = future.get(10, TimeUnit.SECONDS);
+                    if(!status)
+                        throw new InterruptedException();
+
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    warningstr = "Thread Interrupted!!!!";
+                    return;
+                }  /*catch (ExecutionException e) {
+                    e.printStackTrace();
+                    warningstr = "Server call timed out!";
+                    return;
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                    warningstr = "Server call timed out!";
+                    return;
+                }*/ catch (Exception e) {
                     e.printStackTrace();
                 }
 
 
-               if (!connmanager.connect())
-               {
-                   warningstr = connmanager.getError();
-                   return;
-               }
-
-
-                Map<String, String> extparam = new HashMap<String, String>();
-                extparam.put("PhoneNo", phoneno);
-
-                if(!connmanager.registerDevice(email,password, extparam))
-                {
-                    warningstr = connmanager.getError();
-                    return;
-                }
-
-
-
-                reghandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        regpresenter.updateUIProgress();
-                    }
-                });
-
-
-                appstate.setRegistered(true);
             }
         });
+
         registerthread.start();
+        exservice.shutdownNow();
+
         Log.d("thread finished", "thread finished");
 
     }
+
 
 
     private  boolean  checkErrors() {  //need to make error checking a bit more generic!!!
@@ -130,6 +186,7 @@ public class RegisterModel implements RegisterModelInt {
 
     @Override
     public String getWarningStr() {
+
         return warningstr;
     }
 

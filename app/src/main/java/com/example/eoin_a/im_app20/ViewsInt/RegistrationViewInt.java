@@ -9,7 +9,6 @@ public interface RegistrationViewInt {
 
 
     public void registerUser();
-    public boolean isRegistered();
     public void getMessage();
     public void updateProgress();
 

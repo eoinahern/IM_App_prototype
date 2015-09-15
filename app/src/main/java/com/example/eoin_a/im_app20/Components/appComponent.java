@@ -12,6 +12,8 @@ import com.example.eoin_a.im_app20.Views.RegistrationActivity;
 
 import org.jivesoftware.smackx.iqregister.AccountManager;
 
+import java.util.concurrent.ExecutorService;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -31,4 +33,7 @@ public interface appComponent {
      //void inject(ConnectionManager manager);
      // inject(RegistrationActivity activity);
      Context cont();
+     ExecutorService exservice();
+
+
 }

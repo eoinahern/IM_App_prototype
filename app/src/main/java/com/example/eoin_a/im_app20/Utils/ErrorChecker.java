@@ -60,10 +60,11 @@ public class ErrorChecker implements ErrorCheckerInt {
     @Override
     public boolean emailValid() {
 
+        //may need \ before . chars???
 
-
-        if(!email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z.]+[a-z]+"))
+        if(!email.matches("[a-zA-Z0-9._-]+@[a-zA-Z]+\\.{1}[a-zA-Z]+\\.?[a-zA-Z]+"))
         {
+
             warning += cont.getString(R.string.warn2) + "\n";
             return false;
         }
@@ -91,7 +92,7 @@ public class ErrorChecker implements ErrorCheckerInt {
 
 
 
-        if( (phoneno.length() > 15)  ||  !checkAllDigits(phoneno))
+        if( (phoneno.length() > 15 || phoneno.length() < 5)  || !phoneno.matches("[0-9]+"))
         {
             warning += cont.getString(R.string.phonenowarning) + "\n";
             return false;

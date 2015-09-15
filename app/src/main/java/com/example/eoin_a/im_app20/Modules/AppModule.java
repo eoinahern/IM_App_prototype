@@ -5,6 +5,9 @@ import android.content.Context;
 import com.example.eoin_a.im_app20.MyApplication;
 
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -28,6 +31,14 @@ public class AppModule {
     Context provideAppContext()
     {
         return myapp;
+    }
+
+
+    @Singleton
+    @Provides
+    ExecutorService provideExecutorService()
+    {
+        return Executors.newSingleThreadExecutor();
     }
 
 

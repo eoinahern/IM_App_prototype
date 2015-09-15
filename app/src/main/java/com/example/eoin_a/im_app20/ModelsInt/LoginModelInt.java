@@ -7,4 +7,5 @@ public interface LoginModelInt {
 
 
     public boolean login(String emailin, String passin);
+    public String getWarning();
 }

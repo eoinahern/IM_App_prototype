@@ -101,20 +101,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     public void registerUser() {
 
        showDialog();
-
-         rpresenter.relayRegisterUser(emailedtxt.getText().toString(), passedtxt.getText().toString(),
+        rpresenter.relayRegisterUser(emailedtxt.getText().toString(), passedtxt.getText().toString(),
                  phoneedtxt.getText().toString());
 
-    }
-
-    @Override
-    public boolean isRegistered()
-    {
-        //check if user is registered. get val from model.
-
-
-
-        return false;
     }
 
 
@@ -138,7 +127,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
         if(!error.equalsIgnoreCase(""))
         {
-            Toast toast = Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, -50);
             toast.show();
         }
@@ -171,8 +160,4 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     }
 
 
-    private void saveCredentials()
-    {
-
-    }
 }

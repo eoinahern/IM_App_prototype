@@ -40,7 +40,7 @@ public class IntroActivity extends AppCompatActivity {
         appComponent component =  MyApplication.component();
         component.inject(this);
         handl = new Handler();
-
+        appstate.setRegistered(false); //unregistering for now. need to be removed
         startScreen();
 
     }

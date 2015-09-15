@@ -1,6 +1,7 @@
 package com.example.eoin_a.im_app20.Utils;
 
 import android.content.Context;
+import android.util.Log;
 
 //import com.example.eoin_a.im_app20.Components.DaggerconnmanComponent;
 import com.example.eoin_a.im_app20.Components.DaggerconnmanComponent;
@@ -76,15 +77,18 @@ public class ConnectionManager implements ConnectionManagerInt {
             conn1.connect();
         } catch (SmackException e) {
             e.printStackTrace();
-            error += cont.getResources().getResourceName(R.string.error_conn);
+            error += cont.getResources().getString(R.string.error_conn);
+            Log.d("SmackException thrown", "SmackException");
             return false;
         } catch (IOException e) {
             e.printStackTrace();
-            error += cont.getResources().getResourceName(R.string.error_conn);
+            error += cont.getResources().getString(R.string.error_conn);
+            Log.d("IOException thrown", "IOException");
             return false;
         } catch (XMPPException e) {
             e.printStackTrace();
-            error += cont.getResources().getResourceName(R.string.error_conn);
+            error += cont.getResources().getString(R.string.error_conn);
+            Log.d("XMPPException thrown", "XMPPException");
             return false;
         }
 
@@ -97,6 +101,13 @@ public class ConnectionManager implements ConnectionManagerInt {
     public boolean loginDevice(String email, String password)
     {
 
+        //login using smack api
+
+        resetError();
+
+
+
+
 
 
 
@@ -107,27 +118,33 @@ public class ConnectionManager implements ConnectionManagerInt {
     @Override
     public boolean registerDevice(String email, String password, Map<String, String> extraparam)
     {
+
+        resetError();
+
         try {
             if(accman.supportsAccountCreation())
                  accman.createAccount(email,password, extraparam);
             else
             {
-                error +=  cont.getResources().getResourceName(R.string.regfail);
+                error +=  cont.getResources().getString(R.string.regfail).toString();
+                Log.d("Error Account Creation", "Account");
                 return false;
             }
 
 
         } catch (SmackException.NoResponseException e) {
             e.printStackTrace();
-            error += cont.getResources().getResourceName(R.string.regfail);
+            error += cont.getResources().getString(R.string.regfail);
+            Log.d("SmackException thrown", "SmackException");
             return false;
         } catch (XMPPException.XMPPErrorException e) {
             e.printStackTrace();
-            error += cont.getResources().getResourceName(R.string.regfail);
+            error += cont.getResources().getString(R.string.regfail);
+            Log.d("XMPPException thrown", "XMPPException");
             return false;
         } catch (SmackException.NotConnectedException e) {
             e.printStackTrace();
-            error += cont.getResources().getResourceName(R.string.regfail);
+            error += cont.getResources().getString(R.string.regfail);
             return false;
         }
 

@@ -9,7 +9,7 @@ public interface LoginViewInt {
     void relayLoginUser();
     void showLoading();
     void hideLoading();
-    void LoginComplete(String loginstate);
+    void LoginComplete();
 
 
 }
