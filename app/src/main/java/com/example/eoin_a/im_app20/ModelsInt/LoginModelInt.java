@@ -6,6 +6,6 @@ package com.example.eoin_a.im_app20.ModelsInt;
 public interface LoginModelInt {
 
 
-    public boolean login(String emailin, String passin);
+    public void login(String emailin, String passin);
     public String getWarning();
 }

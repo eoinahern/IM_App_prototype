@@ -41,7 +41,6 @@ public class RegisterModel implements RegisterModelInt {
     @Inject AppState appstate;
     @Inject ErrorChecker errchecker;
     @Inject ConnectionManager connmanager;
-    @Inject ExecutorService exservice;
     private Thread registerthread;
     private RegisterPresenterInt regpresenter;
     private Handler reghandler;
@@ -65,13 +64,13 @@ public class RegisterModel implements RegisterModelInt {
     @Override
     public void registerDevice(final String email, final String password, final String phoneno) {
 
-        //relatively messy looking at present. id like to refactor this!!
+
+        //refactor!!
 
 
         /*errchecker.setEmail(email);
         errchecker.setPassword(password);
         errchecker.setPhoneNo(phoneno);
-
 
         if(!checkErrors())
         {
@@ -79,18 +78,13 @@ public class RegisterModel implements RegisterModelInt {
             return;
         }*/
 
-
-
-
-
+        ExecutorService exservice =  Executors.newSingleThreadExecutor();
             final Future<Boolean> future = exservice.submit(new Callable() {
-
 
                 @Override
                 public Boolean call() throws Exception {
 
                     android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-
 
                     if (!connmanager.connect()) {
                         warningstr = connmanager.getError();
@@ -120,9 +114,7 @@ public class RegisterModel implements RegisterModelInt {
                             regpresenter.updateUIProgress();
                         }
                     });
-
                 }
-
             });
 
         exservice.shutdown();
@@ -133,9 +125,8 @@ public class RegisterModel implements RegisterModelInt {
 
                 try {
 
-                  boolean status =  executorService.awaitTermination(10,TimeUnit.SECONDS);
+                  boolean status =  future.get(10,TimeUnit.SECONDS);
 
-                   // boolean status = future.get(10, TimeUnit.SECONDS);
                     if(!status)
                         throw new InterruptedException();
 
@@ -143,19 +134,9 @@ public class RegisterModel implements RegisterModelInt {
                     e.printStackTrace();
                     warningstr = "Thread Interrupted!!!!";
                     return;
-                }  /*catch (ExecutionException e) {
-                    e.printStackTrace();
-                    warningstr = "Server call timed out!";
-                    return;
-                } catch (TimeoutException e) {
-                    e.printStackTrace();
-                    warningstr = "Server call timed out!";
-                    return;
-                }*/ catch (Exception e) {
+                }  catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
             }
         });
 
@@ -163,7 +144,6 @@ public class RegisterModel implements RegisterModelInt {
         exservice.shutdownNow();
 
         Log.d("thread finished", "thread finished");
-
     }
 
 

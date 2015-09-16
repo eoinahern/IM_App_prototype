@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInt {
 
         hideLoading();   //hide dialog
 
-        if(loginpresenter.getLoggedIn())
+        if(loginpresenter.getError().isEmpty())
         {
            //open main activity
 

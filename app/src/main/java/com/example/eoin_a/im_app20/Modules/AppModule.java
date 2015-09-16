@@ -34,12 +34,7 @@ public class AppModule {
     }
 
 
-    @Singleton
-    @Provides
-    ExecutorService provideExecutorService()
-    {
-        return Executors.newSingleThreadExecutor();
-    }
+
 
 
 }

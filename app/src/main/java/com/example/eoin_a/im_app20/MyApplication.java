@@ -15,7 +15,7 @@ import javax.inject.Inject;
  */
 public class MyApplication extends Application {
 
-    private static appComponent component;
+    public static appComponent component;
     private static MyApplication myapp;
 
     @Override

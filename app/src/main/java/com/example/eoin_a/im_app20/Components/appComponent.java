@@ -23,17 +23,14 @@ import dagger.Component;
  *
  */
 @Singleton
-@Component( modules = {AppModule.class})
+@Component(modules = {AppModule.class})
 public interface appComponent {
 
 
      void inject(IntroActivity introActivity);
-     //void inject(RegisterModel model);
-     //void inject(LoginModel loginmodel);
-     //void inject(ConnectionManager manager);
-     // inject(RegistrationActivity activity);
+
      Context cont();
-     ExecutorService exservice();
+
 
 
 }

@@ -57,6 +57,14 @@ public class ErrorChecker implements ErrorCheckerInt {
     }
 
 
+    public void setCont(Context contin)
+    {
+        //did this for testing!!! not sure if its good practice?
+
+        cont = contin;
+    }
+
+
     @Override
     public boolean emailValid() {
 

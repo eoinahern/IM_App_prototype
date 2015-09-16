@@ -24,7 +24,7 @@ public class LoginPresenter implements LoginPresenterInt {
 
     @Override
     public void LoginDevice(String emailin, String passin) {
-         loggedin = loginmodel.login(emailin,passin);
+          loginmodel.login(emailin,passin);
     }
 
     @Override

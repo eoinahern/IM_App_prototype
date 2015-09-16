@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId "com.example.eoin_a.im_app20"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }

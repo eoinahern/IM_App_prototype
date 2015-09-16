@@ -20,6 +20,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -34,11 +35,10 @@ public class LoginModel implements LoginModelInt {
     private LoginPresenterInt loginpresenter;
     private Handler loginhandler;
     private String warningstr;
+    private Thread loginthread;
     @Inject AppState appstate;
     @Inject ErrorChecker errcheck;
     @Inject ConnectionManager conmanager;
-    @Inject ExecutorService exservice;
-
 
     public LoginModel(LoginPresenterInt loginpresin)
     {
@@ -53,11 +53,7 @@ public class LoginModel implements LoginModelInt {
 
 
     @Override
-    public boolean login(final String emailin, final String passin) {
-
-
-        //may use timetask method for timeout to see which method of timeout
-        //I prefer.
+    public void login(final String emailin, final String passin) {
 
 
         errcheck.setEmail(emailin);
@@ -66,13 +62,13 @@ public class LoginModel implements LoginModelInt {
         if(!checkErrors())
         {
             loginpresenter.LoginComplete();
-            return false;
+            return;
         }
 
-
-       Future<Boolean> future = exservice.submit(new Callable() {
+        ExecutorService exservice =  Executors.newSingleThreadExecutor();
+       final Future future = exservice.submit(new Runnable() {
            @Override
-           public Boolean call() throws Exception {
+           public  void run() {
 
 
                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
@@ -88,7 +84,7 @@ public class LoginModel implements LoginModelInt {
                    warningstr = conmanager.getError();
                    callPresenter();
                    warningstr = "Login failed!!!";
-                   return false;
+                   return;
                }
 
                if(!conmanager.loginDevice(emailin, passin))
@@ -96,11 +92,10 @@ public class LoginModel implements LoginModelInt {
                    warningstr = conmanager.getError();
                    callPresenter();
                    warningstr = "login failed!!";
-                   return false;
+                   return;
                }
 
                callPresenter();
-               return true;
            }
 
            public void callPresenter()
@@ -110,6 +105,7 @@ public class LoginModel implements LoginModelInt {
                    @Override
                    public void run() {
                        loginpresenter.LoginComplete();
+
                    }
                });
            }
@@ -117,20 +113,26 @@ public class LoginModel implements LoginModelInt {
 
 
         exservice.shutdown();
-
-        try
-        {
-           boolean state = future.get(10, TimeUnit.SECONDS);
-           if(!state) { throw new InterruptedException();}
+        loginthread = new Thread() {
 
 
-        } catch (InterruptedException   |  ExecutionException  | TimeoutException  e ) {
-            e.printStackTrace();
-            warningstr = "Login failed!!";
-            return false;
-        }
+            @Override
+            public void run()
+            {
+                try
+                {
+                    future.get(10, TimeUnit.SECONDS);
 
-        return true;
+                } catch (InterruptedException   |  ExecutionException  | TimeoutException  e ) {
+                    e.printStackTrace();
+                    warningstr = "Login failed!!";
+                }
+            }
+        };
+
+        loginthread.start();
+
+
     }
 
     private boolean checkErrors() {
