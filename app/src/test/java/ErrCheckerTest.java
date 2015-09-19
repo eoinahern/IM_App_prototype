@@ -1,4 +1,8 @@
+import android.content.Context;
+
 import com.example.eoin_a.im_app20.BuildConfig;
+import com.example.eoin_a.im_app20.Components.DaggerappComponent;
+import com.example.eoin_a.im_app20.Modules.AppModule;
 import com.example.eoin_a.im_app20.MyApplication;
 import com.example.eoin_a.im_app20.Utils.ErrorChecker;
 
@@ -9,7 +13,6 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 
 /**
  * Created by eoin_a on 15/09/2015.
@@ -26,8 +29,9 @@ public class ErrCheckerTest {
     @Before
     public void setup()
     {
+         Context cont = DaggerappComponent.builder().appModule(new AppModule(MyApplication.getInst())).build().cont();
          errchecker = new ErrorChecker();
-         errchecker.setCont(MyApplication.getInst());
+         errchecker.setCont(cont);
     }
 
 

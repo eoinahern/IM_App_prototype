@@ -7,6 +7,7 @@ import com.example.eoin_a.im_app20.Models.RegisterModel;
 import com.example.eoin_a.im_app20.Modules.AppModule;
 import com.example.eoin_a.im_app20.MyApplication;
 import com.example.eoin_a.im_app20.Utils.ConnectionManager;
+import com.example.eoin_a.im_app20.Utils.ErrorChecker;
 import com.example.eoin_a.im_app20.Views.IntroActivity;
 import com.example.eoin_a.im_app20.Views.RegistrationActivity;
 
@@ -28,9 +29,5 @@ public interface appComponent {
 
 
      void inject(IntroActivity introActivity);
-
      Context cont();
-
-
-
 }

@@ -46,7 +46,7 @@ public class RegisterModel implements RegisterModelInt {
     private Handler reghandler;
     private String warningstr;
     private ExecutorService executorService;
-    private Timer timer;
+
 
 
     public RegisterModel(RegisterPresenterInt regpresin)
@@ -77,6 +77,7 @@ public class RegisterModel implements RegisterModelInt {
             regpresenter.updateUIProgress();
             return;
         }*/
+        connmanager.resetError();
 
         ExecutorService exservice =  Executors.newSingleThreadExecutor();
             final Future<Boolean> future = exservice.submit(new Callable() {
@@ -86,7 +87,7 @@ public class RegisterModel implements RegisterModelInt {
 
                     android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
-                    if (!connmanager.connect()) {
+                    if (!connmanager.createConnect()) {
                         warningstr = connmanager.getError();
                         updateUI();
                         return false;
@@ -125,23 +126,25 @@ public class RegisterModel implements RegisterModelInt {
 
                 try {
 
-                  boolean status =  future.get(10,TimeUnit.SECONDS);
-
-                    if(!status)
-                        throw new InterruptedException();
+                  boolean status =  future.get();
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                    warningstr = "Thread Interrupted!!!!";
+                    Log.d("Exception","Interrupted Exception!!");
+                    warningstr =" Nah!";
                     return;
-                }  catch (Exception e) {
+                }
+                catch (Exception e) {
                     e.printStackTrace();
+                    Log.d("Exception", "Register Exception!!");
+                    warningstr =" Nah!";
+                    return;
                 }
             }
         });
 
         registerthread.start();
-        exservice.shutdownNow();
+
 
         Log.d("thread finished", "thread finished");
     }

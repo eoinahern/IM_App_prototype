@@ -5,6 +5,7 @@ import com.example.eoin_a.im_app20.Components.PerModel;
 import org.jivesoftware.smack.AbstractXMPPConnection;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
+import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.jivesoftware.smackx.iqregister.AccountManager;
 
 import javax.inject.Singleton;
@@ -20,11 +21,21 @@ import dagger.Provides;
 public class ConnManModule {
 
     private AbstractXMPPConnection conn;
+    private XMPPTCPConnectionConfiguration config;
 
     public ConnManModule(AbstractXMPPConnection connin)
     {
         conn = connin;
     }
+
+@PerModel
+@Provides XMPPTCPConnectionConfiguration getConfig()
+{
+    return config;
+}
+
+
+
 
 @PerModel
 @Provides AccountManager getAccountManager()

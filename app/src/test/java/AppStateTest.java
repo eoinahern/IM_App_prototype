@@ -2,8 +2,11 @@
  * Created by eoin_a on 15/09/2015.
  */
 
+import android.content.Context;
+
 import com.example.eoin_a.im_app20.BuildConfig;
 import com.example.eoin_a.im_app20.Components.DaggerappComponent;
+import com.example.eoin_a.im_app20.Components.appComponent;
 import com.example.eoin_a.im_app20.Modules.AppModule;
 import com.example.eoin_a.im_app20.MyApplication;
 import com.example.eoin_a.im_app20.Utils.AppState;
@@ -14,11 +17,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import javax.inject.Inject;
+
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 
@@ -28,15 +29,20 @@ public class AppStateTest {
 
     AppState appstate;
 
+
     @Before
     public void setup()
     {
-            appstate = new AppState(MyApplication.getInst());
+
+        Context cont = DaggerappComponent.builder()
+               .appModule(new AppModule(MyApplication.getInst()))
+               .build().cont();
+
+        appstate = new AppState(cont);
     }
 
 
-
-    @Test
+     @Test
     public void loggedInTest()
     {
         assertEquals(false, appstate.isLoggedIn());

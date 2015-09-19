@@ -44,7 +44,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private Button registerbtn;
     private ProgressDialog progdialog;
     private String dialogstr = "Registering !!";
-    private ProgressBar progbar;
     private boolean registerset;
     @Inject  RegisterPresenterInt rpresenter;
     @Inject AppState appstate;
@@ -59,7 +58,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         passedtxt =(EditText) findViewById(R.id.edtxtpass);
         phoneedtxt = (EditText) findViewById(R.id.edtxtphone);
         registerbtn = (Button) findViewById(R.id.button);
-        progbar = (ProgressBar) findViewById(R.id.progressBar);
+
 
         RegModule regmodule = new RegModule(this);
 

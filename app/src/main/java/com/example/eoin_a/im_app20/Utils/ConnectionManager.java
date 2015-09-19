@@ -37,7 +37,7 @@ public class ConnectionManager implements ConnectionManagerInt {
     private AbstractXMPPConnection conn1;
     private XMPPTCPConnectionConfiguration configbuilder;
     private int PORT = 5222;
-    private String HOST = "52.25.73.200";
+    private String HOST = "52.27.223.239";
     private String ACCOUNT ="admin";
     private String PASS = "hellothere123";
     private String error = "";
@@ -61,6 +61,7 @@ public class ConnectionManager implements ConnectionManagerInt {
 
 
         conn1 = new XMPPTCPConnection(configbuilder);
+        conn1.setPacketReplyTimeout(10000);
          DaggerconnmanComponent.builder().connManModule(new ConnManModule(conn1))
                 .appComponent(MyApplication.component()).
                         build().inject(this);
@@ -68,31 +69,34 @@ public class ConnectionManager implements ConnectionManagerInt {
     }
 
 
+
     @Override
-    public boolean connect()
+    public  boolean createConnect()
     {
         //connect to openfire server
 
         try {
-            conn1.connect();
+            if(!conn1.isConnected())
+                conn1.connect();
+
         } catch (SmackException e) {
             e.printStackTrace();
             error += cont.getResources().getString(R.string.error_conn);
-            Log.d("SmackException thrown", "SmackException");
+            Log.d("SmackException thrown", "SmackException connect");
             return false;
         } catch (IOException e) {
             e.printStackTrace();
             error += cont.getResources().getString(R.string.error_conn);
-            Log.d("IOException thrown", "IOException");
+            Log.d("IOException thrown", "IOException connect");
             return false;
         } catch (XMPPException e) {
             e.printStackTrace();
             error += cont.getResources().getString(R.string.error_conn);
-            Log.d("XMPPException thrown", "XMPPException");
+            Log.d("XMPPException thrown", "XMPPException connect");
             return false;
         }
 
-
+        Log.d("connection created", "connection created");
         return true;
     }
 
@@ -104,14 +108,6 @@ public class ConnectionManager implements ConnectionManagerInt {
         //login using smack api
 
         resetError();
-
-
-
-
-
-
-
-
         return false;
     }
 
@@ -119,17 +115,19 @@ public class ConnectionManager implements ConnectionManagerInt {
     public boolean registerDevice(String email, String password, Map<String, String> extraparam)
     {
 
-        resetError();
+
 
         try {
-            if(accman.supportsAccountCreation())
+            //if(accman.supportsAccountCreation())
+                 accman.sensitiveOperationOverInsecureConnection(true);
                  accman.createAccount(email,password, extraparam);
-            else
+
+          /* else
             {
                 error +=  cont.getResources().getString(R.string.regfail).toString();
-                Log.d("Error Account Creation", "Account");
+                Log.d("Error Account Creation", "Not supported acc creation");
                 return false;
-            }
+            }*/
 
 
         } catch (SmackException.NoResponseException e) {
@@ -144,6 +142,7 @@ public class ConnectionManager implements ConnectionManagerInt {
             return false;
         } catch (SmackException.NotConnectedException e) {
             e.printStackTrace();
+            Log.d("Not Connected!", "Not ConnectedException");
             error += cont.getResources().getString(R.string.regfail);
             return false;
         }
@@ -170,6 +169,7 @@ public class ConnectionManager implements ConnectionManagerInt {
     @Override
     public void closeConn()
     {
+        if(conn1 != null)
         conn1.disconnect();
     }
 

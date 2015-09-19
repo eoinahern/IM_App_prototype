@@ -7,7 +7,7 @@ import java.util.Map;
  */
 public interface ConnectionManagerInt {
 
-    boolean connect();
+    boolean createConnect();
     boolean registerDevice(String email, String password, Map<String, String> extraparam);
     boolean loginDevice(String email, String password);
     String getError();

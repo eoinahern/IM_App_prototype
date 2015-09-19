@@ -79,7 +79,7 @@ public class LoginModel implements LoginModelInt {
                    e.printStackTrace();
                }
 
-               if( !conmanager.connect())
+               if( !conmanager.createConnect())
                {
                    warningstr = conmanager.getError();
                    callPresenter();
