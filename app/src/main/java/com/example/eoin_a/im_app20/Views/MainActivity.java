@@ -1,18 +1,35 @@
 package com.example.eoin_a.im_app20.Views;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.eoin_a.im_app20.R;
 
-public class MainActivity extends ActionBarActivity {
+import com.example.eoin_a.im_app20.R;
+import com.example.eoin_a.im_app20.Utils.FragAdapter;
+
+public class MainActivity extends FragmentActivity {
+
+
+
+    private ViewPager viewpager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        viewpager = (ViewPager) findViewById(R.id.pager);
+        FragmentManager fm = getSupportFragmentManager();
+        viewpager.setAdapter(new FragAdapter(fm));
+
+
+
     }
 
     @Override

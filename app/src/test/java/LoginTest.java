@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.example.eoin_a.im_app20.BuildConfig;
 import com.example.eoin_a.im_app20.R;
 import com.example.eoin_a.im_app20.Views.LoginActivity;
+import com.example.eoin_a.im_app20.Views.MainActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowToast;
 import org.robolectric.util.ActivityController;
 
 /**
@@ -23,6 +25,7 @@ import org.robolectric.util.ActivityController;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
+import static org.robolectric.Shadows.shadowOf;
 
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -41,7 +44,7 @@ public class LoginTest {
     @Before
     public void setup()
     {
-       loginactivity = Robolectric.buildActivity(LoginActivity.class).create().get();
+        loginactivity = Robolectric.buildActivity(LoginActivity.class).create().get();
         checkbox = (CheckBox)  loginactivity.findViewById(R.id.checkBox);
         buttonlogin = (Button) loginactivity.findViewById(R.id.buttonlogin);
         tv1 = (TextView) loginactivity.findViewById(R.id.tv1login);
@@ -80,16 +83,12 @@ public class LoginTest {
     }
 
     @Test
-
-    public void nextActivityTest()
+    public void toastTest()
     {
-
-
-
-
-
+        buttonlogin.performClick();
+        Intent intent = shadowOf(loginactivity).peekNextStartedActivity();
+        assertNotNull(ShadowToast.getTextOfLatestToast());
     }
-
 
 
 

@@ -15,6 +15,13 @@ import dagger.Provides;
 
 @Module
 public class ConnModule {
+
+    public ConnModule()
+    {
+        //pass bolean in.
+        //then use in Connection manager to set injected mocks!!
+    }
+
 @PerModel
 @Provides ConnectionManager getConnectionManager()
 {

@@ -3,10 +3,18 @@ package com.example.eoin_a.im_app20.Modules;
 import com.example.eoin_a.im_app20.Components.PerModel;
 
 import org.jivesoftware.smack.AbstractXMPPConnection;
+import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.PlainStreamElement;
+import org.jivesoftware.smack.packet.Stanza;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.jivesoftware.smackx.iqregister.AccountManager;
+import org.mockito.Mockito;
+
+import java.io.IOException;
 
 import javax.inject.Singleton;
 
@@ -22,11 +30,45 @@ public class ConnManModule {
 
     private AbstractXMPPConnection conn;
     private XMPPTCPConnectionConfiguration config;
+    private AccountManager accman;
+    private int PORT = 5222;
+    private String HOST = "52.27.223.239";
+    private String ACCOUNT ="admin";
+    private String PASS = "hellothere123";
 
-    public ConnManModule(AbstractXMPPConnection connin)
+    public ConnManModule()
     {
-        conn = connin;
+
+     config = XMPPTCPConnectionConfiguration.builder()
+                .setHost(HOST)
+                .setPort(PORT)
+                .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled)
+                .setServiceName(HOST)
+                .setUsernameAndPassword(ACCOUNT, PASS)
+                .build();
+         conn = new XMPPTCPConnection(config);
+         conn.setPacketReplyTimeout(10000);
+         accman = AccountManager.getInstance(conn);
     }
+
+
+    //overload contructor to return mock obj's
+
+    public ConnManModule(boolean mock)
+    {
+        conn = Mockito.mock(AbstractXMPPConnection.class);
+        config = Mockito.mock(XMPPTCPConnectionConfiguration.class);
+        accman = Mockito.mock(AccountManager.class);
+
+    }
+
+
+@PerModel
+@Provides AbstractXMPPConnection getConnection()
+{
+    return conn;
+}
+
 
 @PerModel
 @Provides XMPPTCPConnectionConfiguration getConfig()
@@ -40,7 +82,7 @@ public class ConnManModule {
 @PerModel
 @Provides AccountManager getAccountManager()
 {
-    return AccountManager.getInstance(conn);
+    return accman;
 }
 
 

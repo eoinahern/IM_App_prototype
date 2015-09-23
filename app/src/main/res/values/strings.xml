@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">IM_App2.0</string>
 
-    <string name="hello_world">Hello world!</string>
+
     <string name="action_settings">Settings</string>
     <string name="warn1">Password must be greater than 8 chars long and alphanumeric!</string>
     <string name="warn2">Email address must be in correct format!</string>
@@ -23,5 +23,7 @@
     <string name="title_activity_main">IM_App2.0</string>
     <string name="error_wifi">Wifi is currently not available</string>
     <string name="error_conn">Error: Cant connect to server!</string>
+    <string name="no_contacts">No Contacts Found!</string>
+    <string name="no_chats">No Chats Found!</string>
 
 </resources>

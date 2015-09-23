@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInt {
     private CheckBox chkbox;
     private ProgressDialog progdialog;
     private Intent intent;
-    @Inject LoginPresenterInt loginpresenter;
+    public @Inject LoginPresenterInt loginpresenter;
 
 
     @Override

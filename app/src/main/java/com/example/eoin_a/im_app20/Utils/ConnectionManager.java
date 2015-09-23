@@ -34,12 +34,8 @@ import javax.inject.Inject;
 public class ConnectionManager implements ConnectionManagerInt {
 
 
-    private AbstractXMPPConnection conn1;
-    private XMPPTCPConnectionConfiguration configbuilder;
-    private int PORT = 5222;
-    private String HOST = "52.27.223.239";
-    private String ACCOUNT ="admin";
-    private String PASS = "hellothere123";
+    @Inject AbstractXMPPConnection conn1;
+    @Inject XMPPTCPConnectionConfiguration configbuilder;
     private String error = "";
     @Inject Context cont;
     @Inject AppState appstate;
@@ -50,22 +46,12 @@ public class ConnectionManager implements ConnectionManagerInt {
     @Inject
     public ConnectionManager()
     {
-        //initialize
-        configbuilder = XMPPTCPConnectionConfiguration.builder()
-                .setHost(HOST)
-                .setPort(PORT)
-                .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled) //as this is a prototype SSL is disabled
-                .setServiceName(HOST)
-                .setUsernameAndPassword(ACCOUNT, PASS)
-                .build();
 
+        //may need to pass boolean to inject mocks!!!
 
-        conn1 = new XMPPTCPConnection(configbuilder);
-        conn1.setPacketReplyTimeout(10000);
-         DaggerconnmanComponent.builder().connManModule(new ConnManModule(conn1))
+         DaggerconnmanComponent.builder().connManModule(new ConnManModule())
                 .appComponent(MyApplication.component()).
                         build().inject(this);
-
     }
 
 

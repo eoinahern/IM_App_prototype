@@ -3,11 +3,8 @@ package com.example.eoin_a.im_app20.Modules;
 import android.content.Context;
 
 import com.example.eoin_a.im_app20.MyApplication;
-
-
 import org.mockito.Mockito;
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -46,7 +43,7 @@ public class AppModule {
         {
 
             Context cont  = Mockito.mock(Context.class);
-            return cont;   //prob dont need mock here!! lol!!
+            return cont;
         }
 
     }
