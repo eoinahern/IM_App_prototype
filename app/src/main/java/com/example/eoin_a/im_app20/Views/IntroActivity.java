@@ -94,11 +94,11 @@ public class IntroActivity extends AppCompatActivity {
 
         //dependent on appstate
         //choose next activity to open
-        //Intent intent = new Intent(IntroActivity.this,RegistrationActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(IntroActivity.this,MainActivity.class);
+        startActivity(intent);
 
 
-        if(!appstate.isRegistered())
+       /* if(!appstate.isRegistered())
         {
             Intent intent = new Intent(IntroActivity.this,RegistrationActivity.class);
             startActivity(intent);
@@ -110,7 +110,7 @@ public class IntroActivity extends AppCompatActivity {
             Intent intent = new Intent(IntroActivity.this,LoginActivity.class);
             startActivity(intent);
             return;
-        }
+        }*/
 
     }
 

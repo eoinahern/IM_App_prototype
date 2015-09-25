@@ -12,12 +12,6 @@ import com.example.eoin_a.im_app20.PresentersInt.LoginPresenterInt;
 import com.example.eoin_a.im_app20.Utils.AppState;
 import com.example.eoin_a.im_app20.Utils.ConnectionManager;
 import com.example.eoin_a.im_app20.Utils.ErrorChecker;
-import com.example.eoin_a.im_app20.Utils.MyTimedTask;
-import com.example.eoin_a.im_app20.UtilsInt.ConnectionManagerInt;
-
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

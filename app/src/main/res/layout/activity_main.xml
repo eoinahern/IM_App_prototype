@@ -1,10 +1,35 @@
-<android.support.v4.view.ViewPager
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match parent"
+    android:background="@color/mainback"
+    tools:context="com.example.eoin_a.im_app20.Views.MainActivity">
+
+
+    <LinearLayout
+        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundmain"
+        android:elevation="6dp"
+        android:minHeight="30dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:id="@+id/pager"
-    >
+    />
 
 
-    
-</android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
