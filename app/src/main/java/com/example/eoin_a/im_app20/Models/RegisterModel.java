@@ -15,6 +15,9 @@ import com.example.eoin_a.im_app20.PresentersInt.RegisterPresenterInt;
 import com.example.eoin_a.im_app20.Utils.AppState;
 import com.example.eoin_a.im_app20.Utils.ConnectionManager;
 import com.example.eoin_a.im_app20.Utils.ErrorChecker;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -39,8 +42,7 @@ public class RegisterModel implements RegisterModelInt {
     private Handler reghandler;
     private String warningstr;
     private ExecutorService executorService;
-
-
+    private HashMap<String, String> attrmap;
 
     public RegisterModel(RegisterPresenterInt regpresin)
     {
@@ -49,6 +51,21 @@ public class RegisterModel implements RegisterModelInt {
         DaggerconnComponent.builder().connModule(new ConnModule())
                 .appComponent(MyApplication.component()).build().inject(this);
         warningstr = "";
+
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+        attrmap = new HashMap<>();  // as per smack 4.1.0 java docs
+        attrmap.put("name","empty");
+        attrmap.put("first", "empty");
+        attrmap.put("last","empty");
+        attrmap.put("city","empty");
+        attrmap.put("state", "empty");
+        attrmap.put("zip","empty");
+        attrmap.put("url","empty");
+        attrmap.put("date", date);
+        attrmap.put("misc", "empty");
+        attrmap.put("text", "empty");
+        attrmap.put("remove", "no");  //not sure how remove flag work!
 
     }
 
@@ -86,11 +103,11 @@ public class RegisterModel implements RegisterModelInt {
                         return false;
                     }
 
-                    Map<String, String> extparam = new HashMap<String, String>();
-                    extparam.put("PhoneNo", phoneno);
+                    attrmap.put("phone",phoneno);
+                    attrmap.put("email",email);
 
 
-                    if (!connmanager.registerDevice(email, password, extparam)) {
+                    if (!connmanager.registerDevice(email, password, attrmap)) {
                         warningstr = connmanager.getError();
                         updateUI();
                         return false;

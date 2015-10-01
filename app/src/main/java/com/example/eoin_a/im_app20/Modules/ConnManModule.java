@@ -32,7 +32,7 @@ public class ConnManModule {
     private XMPPTCPConnectionConfiguration config;
     private AccountManager accman;
     private int PORT = 5222;
-    private String HOST = "52.27.223.239";
+    private String HOST = "54.68.155.224";
     private String ACCOUNT ="admin";
     private String PASS = "hellothere123";
 
@@ -47,7 +47,7 @@ public class ConnManModule {
                 .setUsernameAndPassword(ACCOUNT, PASS)
                 .build();
          conn = new XMPPTCPConnection(config);
-         conn.setPacketReplyTimeout(10000);
+         conn.setPacketReplyTimeout(30000);
          accman = AccountManager.getInstance(conn);
     }
 
