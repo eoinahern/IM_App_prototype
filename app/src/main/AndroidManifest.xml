@@ -33,15 +33,18 @@
             android:label="@string/title_activity_main" >
         </activity>
 
-
-        <receiver android:name=".BroadcastRecievers.ConnectionBroadcastReceiver"
-            android:exported="false">
+        <receiver
+            android:name=".BroadcastRecievers.ConnectionBroadcastReceiver"
+            android:exported="false" >
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-                <action android:name="android.net.wifi.STATE_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
+        <activity
+            android:name=".Views.ChatActivity"
+            android:label="@string/title_activity_chat" >
+        </activity>
     </application>
 
 </manifest>

@@ -18,6 +18,9 @@ import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.chat.Chat;
+import org.jivesoftware.smack.chat.ChatManager;
+import org.jivesoftware.smack.chat.ChatManagerListener;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.jivesoftware.smackx.iqregister.AccountManager;
@@ -40,6 +43,7 @@ public class ConnectionManager implements ConnectionManagerInt {
     @Inject Context cont;
     @Inject AppState appstate;
     @Inject AccountManager accman;
+    @Inject ChatManager chatmanager;
     private Map<String, String> attrmap;
 
 
@@ -92,9 +96,24 @@ public class ConnectionManager implements ConnectionManagerInt {
     {
 
         //login using smack api
+        try {
+            conn1.login(email, password);
+        } catch (XMPPException e) {
+            e.printStackTrace();
+            error += "Login failed!!!";
+            return false;
+        } catch (SmackException e) {
+            e.printStackTrace();
+            error += "Login failed!!";
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            error += "Login failed";
+            return false;
+        }
 
-        resetError();
-        return false;
+
+        return true;
     }
 
     @Override
@@ -106,7 +125,7 @@ public class ConnectionManager implements ConnectionManagerInt {
         try {
             //if(accman.supportsAccountCreation())
                  accman.sensitiveOperationOverInsecureConnection(true);
-                 accman.createAccount(email,password, extraparam);
+                 accman.createAccount(email, password, extraparam);
 
           /* else
             {
@@ -137,6 +156,39 @@ public class ConnectionManager implements ConnectionManagerInt {
 
         return true;
     }
+
+
+
+    public void listenForIncomingChat(final Context servicecontext)
+    {
+
+
+        chatmanager.addChatListener(new ChatManagerListener() {
+            @Override
+            public void chatCreated(Chat chat, boolean createdLocally) {
+
+
+
+                // Todo: when chat is created save chat data.
+                // Todo: create the notification
+
+
+                IncomingNotification incomingnotification = new IncomingNotification();
+                incomingnotification.showNotification(servicecontext);
+
+
+
+
+
+
+
+
+            }
+        });
+
+
+    }
+
 
 
     @Override

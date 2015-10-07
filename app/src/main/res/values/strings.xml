@@ -25,5 +25,8 @@
     <string name="error_conn">Error: Cant connect to server!</string>
     <string name="no_contacts">No Contacts Found!</string>
     <string name="no_chats">No Chats Found!</string>
+    <string name="title_activity_chat">Im_App2.0</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

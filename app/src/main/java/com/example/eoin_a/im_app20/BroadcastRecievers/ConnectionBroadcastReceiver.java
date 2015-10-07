@@ -18,17 +18,51 @@ import com.example.eoin_a.im_app20.Services.ChatListenerService;
 public class ConnectionBroadcastReceiver extends BroadcastReceiver {
 
 
+
+
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
-
         Log.d("Broadcast", "action : " + intent.getAction());
-        if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
+
+
+
+        if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION))
+        {
+            ConnectivityManager conman = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkinfo =  conman.getActiveNetworkInfo();
+
+
+
+            if(networkinfo == null)
+            {
+                return;
+            }
+            else if(networkinfo.getState() == NetworkInfo.State.CONNECTED)
+            {
+                    Log.d("network","network connected");
+            }
+            else if(networkinfo.getDetailedState() == NetworkInfo.DetailedState.DISCONNECTED)
+            {
+                    Log.d("network", "network disconnected");
+            }
+            else
+                return;
+
+        }
+
+        /*if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
             NetworkInfo networkInfo =
                     intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
             if (networkInfo.isConnected()) {
-                // Wifi is connected
+
+                // Todo: fix this. this action is never caught!!
+
+                context.startService(new Intent(context, ChatListenerService.class));
+                Toast.makeText(context, "service started!!", Toast.LENGTH_LONG).show();
                 Log.d("network state", "Wifi is connected: " + String.valueOf(networkInfo));
+
             }
         } else if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
 
@@ -37,11 +71,12 @@ public class ConnectionBroadcastReceiver extends BroadcastReceiver {
 
             if(networkInfo == null)
             {
+                context.stopService(new Intent(context, ChatListenerService.class));
                 Log.d("no network", "no network");
                 return;
             }
 
-        }
+        }*/
     }
 
 }

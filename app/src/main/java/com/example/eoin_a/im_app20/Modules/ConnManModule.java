@@ -7,6 +7,7 @@ import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.chat.ChatManager;
 import org.jivesoftware.smack.packet.PlainStreamElement;
 import org.jivesoftware.smack.packet.Stanza;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
@@ -31,6 +32,7 @@ public class ConnManModule {
     private AbstractXMPPConnection conn;
     private XMPPTCPConnectionConfiguration config;
     private AccountManager accman;
+    private ChatManager chatmanager;
     private int PORT = 5222;
     private String HOST = "54.68.155.224";
     private String ACCOUNT ="admin";
@@ -49,6 +51,7 @@ public class ConnManModule {
          conn = new XMPPTCPConnection(config);
          conn.setPacketReplyTimeout(30000);
          accman = AccountManager.getInstance(conn);
+         chatmanager  = ChatManager.getInstanceFor(conn);
     }
 
 
@@ -83,6 +86,14 @@ public class ConnManModule {
 @Provides AccountManager getAccountManager()
 {
     return accman;
+}
+
+
+
+@PerModel
+@Provides ChatManager getChatMnanger()
+{
+    return chatmanager;
 }
 
 
